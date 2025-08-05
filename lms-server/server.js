@@ -2,13 +2,14 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import mongodbConnection from "./src/config/mongodbConfig.js";
+import { config } from "./src/config/config.js";
 
 // Load environment variables from .env file
 dotenv.config();
 
 // Connect to MongoDB
 
-const PORT = process.env.PORT || 4001;
+const PORT = config.port || 4001;
 
 const app = express();
 app.use(cors());

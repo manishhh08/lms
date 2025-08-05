@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
+import { config } from "./config.js";
 const mongodbConnection = async () => {
   await mongoose.connect(
-    process.env.MONGO_URL || "mongodb://localhost:27017/lms-db"
+    config.mongoOption.url,
   );
 };
 
