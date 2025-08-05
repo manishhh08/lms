@@ -1,0 +1,2 @@
+PORT= port number required
+MONGO_URL=mongodb url required
