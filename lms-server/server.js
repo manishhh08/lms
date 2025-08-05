@@ -25,14 +25,14 @@ app.get("/", (req, res) => {
 // Start the server
 mongodbConnection().then(() => {
   console.log("Connected to MongoDB");
-});
-app.listen(PORT, (err) => {
+  app.listen(PORT, (err) => {
   if (err) {
     console.error("Error starting server:", err);
-    return;
   } else {
     console.log("Server started successfully on port", PORT);
   }
+})
+}).catch((err) => {
+  console.error("Error connecting to MongoDB:", err);
 });
 
-export default app;
