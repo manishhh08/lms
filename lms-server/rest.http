@@ -1,0 +1,25 @@
+@baseUrl= http://localhost:4001
+@apiUrl= {{baseUrl}}/api/v1
+
+###
+POST {{apiUrl}}/auth/register
+Content-Type: application/json
+ 
+ {
+    "role": "admin",
+    "firstName": "Admin",
+    "lastName": "Here",
+    "email": "hello@gmail.com",
+    "password":"1234",
+    "phone": "1234567890"
+
+ }
+
+###
+POST {{apiUrl}}/auth/login
+Content-Type: application/json
+
+   {
+      "email": "hello@gmail.com",
+      "password": "1234"
+   }

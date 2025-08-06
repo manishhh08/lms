@@ -3,6 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongodbConnection from "./src/config/mongodbConfig.js";
 import { config } from "./src/config/config.js";
+import { registerUser } from "./src/controller/authController.js";
+import authRouter from "./src/routes/authRouter.js";
 
 // Load environment variables from .env file
 dotenv.config();
@@ -22,17 +24,21 @@ app.get("/", (req, res) => {
   });
 });
 
-// Start the server
-mongodbConnection().then(() => {
-  console.log("Connected to MongoDB");
-  app.listen(PORT, (err) => {
-  if (err) {
-    console.error("Error starting server:", err);
-  } else {
-    console.log("Server started successfully on port", PORT);
-  }
-})
-}).catch((err) => {
-  console.error("Error connecting to MongoDB:", err);
-});
+// User routes
 
+app.use("/api/v1/auth", authRouter);
+// Start the server
+mongodbConnection()
+  .then(() => {
+    console.log("Connected to MongoDB");
+    app.listen(PORT, (err) => {
+      if (err) {
+        console.error("Error starting server:", err);
+      } else {
+        console.log("Server started successfully on port", PORT);
+      }
+    });
+  })
+  .catch((err) => {
+    console.error("Error connecting to MongoDB:", err);
+  });
