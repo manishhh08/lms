@@ -1,9 +1,10 @@
 import "./App.css";
+import Footer from "./components/layout/Footer";
 
 function App() {
   return (
     <>
-      <h1>LMS client</h1>
+      <Footer />
     </>
   );
 }
