@@ -5,27 +5,29 @@ import CustomInput from "./CustomInput";
 import { Navigate, useNavigate } from "react-router-dom";
 // import { postUser } from "../utils/axiosHelper";
 import { toast } from "react-toastify";
-// import useForm from "../hooks/useForm";
+import useForm from "../hooks/useForm";
+import { createUser } from "../features/user/userAPI";
 
 const SignupForm = () => {
   const navigate = useNavigate();
 
   let initialState = {
-    username: "",
+    fullName: "",
     email: "",
     password: "",
+    phone: "",
   };
   //console.log(useState(0));
-  //   const { form, setForm, handleOnChange } = useForm(initialState);
+  const { form, setForm, handleOnChange } = useForm(initialState);
 
   let inputFields = [
     {
-      id: "name",
+      id: "fullName",
       label: "Name",
-      name: "username",
+      name: "fullName",
       type: "text",
       placeholder: "Enter Name",
-      //   value: form.username,
+      value: form.fullName,
     },
     {
       id: "email",
@@ -33,7 +35,7 @@ const SignupForm = () => {
       name: "email",
       type: "email",
       placeholder: "Enter Email",
-      //   value: form.email,
+      value: form.email,
     },
     {
       id: "password",
@@ -41,7 +43,7 @@ const SignupForm = () => {
       name: "password",
       type: "password",
       placeholder: "Enter Password",
-      //   value: form.password,
+      value: form.password,
     },
 
     {
@@ -57,47 +59,49 @@ const SignupForm = () => {
       name: "phone",
       type: "text",
       placeholder: "Enter Phone Number",
-      // value: form.phone,
+      value: form.phone,
     },
   ];
 
-  //   const handleOnSubmit = async (e) => {
-  //     e.preventDefault();
-  //     //alert("form submitted");
+  //  handle on submit here
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    // alert("Form submitted");
 
-  //     //make create user post req from axios
-  //     if (form.password != form.cpassword) {
-  //       toast.error("Email or Password combination incorrect!!! Try again", {
-  //         position: "top-right",
-  //         theme: "dark",
-  //       });
-  //     } else {
-  //       let data = await postUser(form);
-  //       console.log("response from api is:", data);
+    //make create user post req from axios
+    if (form.password != form.cpassword) {
+      toast.error("Email or Password combination incorrect!!! Try again", {
+        position: "top-right",
+        theme: "dark",
+      });
+    } else {
+      let data = await createUser(form);
+      console.log("response from api is:", data);
 
-  //       //if success route to login else show error in toast message
-  //       if (data.status) {
-  //         toast.success(data.message);
-  //         navigate("/login");
-  //       } else {
-  //         toast.error(data.message);
-  //       }
-  //     }
-  //   };
-  // const handleOnChange = (event) => {
+      //if success route to login else show error in toast message
+      if (data.status) {
+        toast.success(data.message);
+        navigate("/login");
+      } else {
+        toast.error(data.message);
+      }
+    }
+  };
+
+  // const handleOnChange = (e) => {
   //   let tempForm = { ...form };
-  //   tempForm[event.target.name] = event.target.value;
-
+  //   tempForm[e.target.name] = e.target.value;
   //   setForm(tempForm);
   // };
+
   return (
     <div>
       <h1>Signup Form</h1>
       <hr />
       {/* <Form onSubmit={handleOnSubmit}> */}
-      <Form>
+      <Form onSubmit={handleOnSubmit}>
         {inputFields.map((item) => {
-          return <CustomInput {...item} />;
+          return <CustomInput {...item} onChange={handleOnChange} />;
           //   return <CustomInput {...item} onChange={handleOnChange} />;
         })}
         <Form.Group className="mb-3" controlId="formBasicSelect">

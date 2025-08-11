@@ -6,10 +6,11 @@ import { Navigate, useLocation, useNavigate } from "react-router-dom";
 // import { loginUser } from "../utils/axiosHelper";s
 import { toast } from "react-toastify";
 import { useEffect } from "react";
+import { loginUser } from "../features/user/userAPI";
 // import { useUser } from "../context/userContext";
 
 const LoginForm = () => {
-  //   const { setUser, user } = useUser();
+  const [user, setUser] = useState();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -41,17 +42,16 @@ const LoginForm = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    //alert("login successful");
+    // alert("login successful");
 
     let data = await loginUser(form);
-    console.log("response from login:", data);
-
+    console.log("response:", data);
     if (data.status) {
       toast.success(data.message);
-      // navigate("/dashboard");
 
-      //when logged in
-      //   setUser(data.user);
+      setUser(data.user);
+      // redirect to dashboard
+      navigate("/dashboard");
 
       //store access token in local storage
       localStorage.setItem("accessToken", data.accessToken);
@@ -65,13 +65,6 @@ const LoginForm = () => {
     tempForm[e.target.name] = e.target.value;
     setForm(tempForm);
   };
-
-  const pastLocation = location?.state?.from?.pathname || "/dashboard";
-
-  //   useEffect(() => {
-  //     user?._id && navigate(pastLocation);
-  //   }, [user?._id]);
-
   return (
     <>
       <h1>Login Here</h1>
@@ -79,6 +72,7 @@ const LoginForm = () => {
       <Form onSubmit={handleOnSubmit}>
         {inputFields.map((item, index) => {
           return (
+            // <CustomInput key={index} {...item} onChange={handleOnChange} />
             <CustomInput key={index} {...item} onChange={handleOnChange} />
           );
         })}

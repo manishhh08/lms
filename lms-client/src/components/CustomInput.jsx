@@ -1,15 +1,6 @@
 import { Form } from "react-bootstrap";
 
-const CustomInput = ({
-  id,
-  label,
-  type,
-  name,
-  role,
-  placeholder,
-  value,
-  onChange,
-}) => {
+const CustomInput = ({ id, label, ...rest }) => {
   // let id = "id";
   // let label = "label";
   // let type = "email";
@@ -17,16 +8,9 @@ const CustomInput = ({
   // let placeholder = "Enter Email";
 
   return (
-    <Form.Group className="mb-3" controlId={id}>
+    <Form.Group className="mb-3">
       <Form.Label>{label}</Form.Label>
-      <Form.Control
-        type={type}
-        name={name}
-        role={role}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-      />
+      <Form.Control {...rest} />
     </Form.Group>
   );
 };

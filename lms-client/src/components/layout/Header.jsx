@@ -13,7 +13,7 @@ const Header = () => {
       bg="dark"
     >
       <Container>
-        <Navbar.Brand href="/dashboard">FT</Navbar.Brand>
+        <Navbar.Brand href="/dashboard">LMS</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           {/* <Nav className="ms-auto">
@@ -52,9 +52,6 @@ const Header = () => {
             <>
               <Nav.Link as={Link} to="/dashboard">
                 Dashboard
-              </Nav.Link>
-              <Nav.Link as={Link} to="/transaction">
-                Transaction
               </Nav.Link>
 
               <Button

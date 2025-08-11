@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import PrivateLayout from "./components/layout/PrivateLayout";
 
 function App() {
   return (
@@ -14,14 +15,16 @@ function App() {
       <div className="wrapper">
         <Routes>
           {/* Define your routes here */}
-          <>
-            <Route path="*" element={<PublicLayout />} />
 
+          <Route path="/" element={<PublicLayout />}>
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
             {/* dashboard route */}
+          </Route>
+
+          <Route path="/" element={<PrivateLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
-          </>
+          </Route>
 
           {/* Other routes can be added here */}
         </Routes>
