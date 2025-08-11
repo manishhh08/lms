@@ -4,9 +4,10 @@ import Form from "react-bootstrap/Form";
 import CustomInput from "./CustomInput";
 import { Navigate, useNavigate } from "react-router-dom";
 // import { postUser } from "../utils/axiosHelper";
-import { toast } from "react-toastify";
+
 import useForm from "../hooks/useForm";
 import { createUser } from "../features/user/userAPI";
+import { toast } from "react-toastify";
 
 const SignupForm = () => {
   const navigate = useNavigate();

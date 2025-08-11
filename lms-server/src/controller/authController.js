@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
-import { createUser } from "../models/users/UserModel.js";
+import { createUser, getUser } from "../models/users/UserModel.js";
 
 export const registerUser = async (req, res) => {
   try {
@@ -34,14 +35,14 @@ export const loginUser = async (req, res) => {
     let { email, password } = req.body;
 
     // fetch user fro database
-    let user = await getUser({ email: email });
-    if (!user?.status && !user?.isEmailVerified) {
-      return res.status(401).json({
-        status: false,
-        message:
-          "Your email is not verified or account is inactive, contact admin!",
-      });
-    }
+    let user = await getUser(email);
+    // if (!user?.status && !user?.isEmailVerified) {
+    //   return res.status(401).json({
+    //     status: false,
+    //     message:
+    //       "Your email is not verified or account is inactive, contact admin!",
+    //   });
+    // }
 
     if (user) {
       // user found
