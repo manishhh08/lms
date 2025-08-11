@@ -45,9 +45,8 @@ export const loginUser = async (req, res) => {
     // }
 
     if (user) {
-      // user found
-      // user.password -> db password
-      // compare password with user.password
+      // user found then compare user.password -> db password
+
       let passwordMatch = bcrypt.compareSync(password, user.password);
       if (passwordMatch) {
         user.password = "";
@@ -57,7 +56,6 @@ export const loginUser = async (req, res) => {
         };
 
         let accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
-          // expiresIn: process.env.JWT_EXPIRES_IN,
           expiresIn: process.env.EXPIRES_IN,
         });
 
@@ -85,6 +83,56 @@ export const loginUser = async (req, res) => {
     return res.status(500).json({
       status: false,
       message: "SERVER ERROR",
+    });
+  }
+};
+
+export const verifyEmail = async (req, res) => {
+  try {
+    let token = req.query.t;
+    let email = req.query.email;
+
+    let user = await getUser({ email: email });
+
+    if (user) {
+      // let updatedUSer = await updateUser(
+      //   { email: email },
+      //   { isEmailVerified: true }
+      // );
+
+      if (user.isEmailVerified) {
+        return res.json({
+          status: false,
+          message: "User already verified",
+        });
+      }
+
+      if (user.emailVerificationToken === token) {
+        user.isEmailVerified = true;
+        user.emailVerificationToken = "";
+        await user.save();
+
+        return res.json({
+          status: true,
+          message: "Verified",
+        });
+      } else {
+        return res.json({
+          status: false,
+          message: "Email could not be verified",
+        });
+      }
+    } else {
+      return res.json({
+        status: false,
+        message: "User not found",
+      });
+    }
+  } catch (err) {
+    console.log(err.message);
+    return res.json({
+      status: false,
+      message: "Verification Failed",
     });
   }
 };

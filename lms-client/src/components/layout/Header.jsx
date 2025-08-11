@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 // import { useUser } from "../../context/userContext";
 
 const Header = () => {
   //   const { user, setUser } = useUser();
+  const [user, setUser] = useState({});
+  const navigate = useNavigate();
   return (
     <Navbar
       expand="lg"
@@ -57,8 +60,10 @@ const Header = () => {
               <Button
                 onClick={() => {
                   //remove user data from context
-                  //   setUser({});
+                  alert("Logout clicked");
+                  setUser(null);
                   localStorage.removeItem("accessToken");
+                  navigate("/login");
                 }}
               >
                 Logout

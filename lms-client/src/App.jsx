@@ -8,6 +8,8 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import PrivateLayout from "./components/layout/PrivateLayout";
+import VerifyEmail from "./pages/VerifyEmail";
+import Auth from "./auth/Auth";
 
 function App() {
   return (
@@ -23,10 +25,19 @@ function App() {
           </Route>
 
           <Route path="/" element={<PrivateLayout />}>
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route
+              path="/dashboard"
+              element={
+                // <Auth>
+                //   <Dashboard />
+                // </Auth>
+                <Dashboard />
+              }
+            />
           </Route>
 
           {/* Other routes can be added here */}
+          <Route path="verify-email" element={<VerifyEmail />} />
         </Routes>
       </div>
       <ToastContainer />

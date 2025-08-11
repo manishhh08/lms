@@ -11,8 +11,8 @@ export const getUserById = (id) => {
 };
 
 //get user by email filter
-export const getUser = (email) => {
-  return UserSchema.findOne({ email: email });
+export const getUser = ({ filter }) => {
+  return UserSchema.findOne({ filter });
 };
 
 //create or register new user

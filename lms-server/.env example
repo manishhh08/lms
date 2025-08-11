@@ -1,2 +1,10 @@
-PORT= port number required
-MONGO_URL=mongodb url required
+PORT= port number
+MONGO_URL=URL here
+JWT_SECRET=Secret
+VITE_APP_API_URL=http://localhost:4001
+EXPIRES_IN= required time
+
+EMAIL_SMTP= smtp.ethereal.email
+EMAIL_PORT=587
+EMAIL_USER= your email
+EMAIL_PASS=	email password
