@@ -6,10 +6,10 @@ const Signup = () => {
   return (
     <Container className="bg-dark ">
       <Row>
-        <Col md={6} className="p-5 rounded text-white">
+        {/* <Col md={6} className="p-5 rounded text-white">
           Financial Tips
-        </Col>
-        <Col md={6}>
+        </Col> */}
+        <Col>
           {/* Sign up form here */}
           <SignupForm />
         </Col>

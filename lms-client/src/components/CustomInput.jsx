@@ -5,6 +5,7 @@ const CustomInput = ({
   label,
   type,
   name,
+  role,
   placeholder,
   value,
   onChange,
@@ -21,6 +22,7 @@ const CustomInput = ({
       <Form.Control
         type={type}
         name={name}
+        role={role}
         placeholder={placeholder}
         value={value}
         onChange={onChange}

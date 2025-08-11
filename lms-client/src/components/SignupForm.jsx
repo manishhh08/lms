@@ -25,7 +25,7 @@ const SignupForm = () => {
       name: "username",
       type: "text",
       placeholder: "Enter Name",
-      value: form.username,
+      //   value: form.username,
     },
     {
       id: "email",
@@ -33,7 +33,7 @@ const SignupForm = () => {
       name: "email",
       type: "email",
       placeholder: "Enter Email",
-      value: form.email,
+      //   value: form.email,
     },
     {
       id: "password",
@@ -41,7 +41,7 @@ const SignupForm = () => {
       name: "password",
       type: "password",
       placeholder: "Enter Password",
-      value: form.password,
+      //   value: form.password,
     },
 
     {
@@ -51,31 +51,39 @@ const SignupForm = () => {
       type: "password",
       placeholder: "Confirm Password",
     },
+    {
+      id: "phone",
+      label: "Phone",
+      name: "phone",
+      type: "text",
+      placeholder: "Enter Phone Number",
+      // value: form.phone,
+    },
   ];
 
-  const handleOnSubmit = async (e) => {
-    e.preventDefault();
-    //alert("form submitted");
+  //   const handleOnSubmit = async (e) => {
+  //     e.preventDefault();
+  //     //alert("form submitted");
 
-    //make create user post req from axios
-    if (form.password != form.cpassword) {
-      toast.error("Email or Password combination incorrect!!! Try again", {
-        position: "top-right",
-        theme: "dark",
-      });
-    } else {
-      let data = await postUser(form);
-      console.log("response from api is:", data);
+  //     //make create user post req from axios
+  //     if (form.password != form.cpassword) {
+  //       toast.error("Email or Password combination incorrect!!! Try again", {
+  //         position: "top-right",
+  //         theme: "dark",
+  //       });
+  //     } else {
+  //       let data = await postUser(form);
+  //       console.log("response from api is:", data);
 
-      //if success route to login else show error in toast message
-      if (data.status) {
-        toast.success(data.message);
-        navigate("/login");
-      } else {
-        toast.error(data.message);
-      }
-    }
-  };
+  //       //if success route to login else show error in toast message
+  //       if (data.status) {
+  //         toast.success(data.message);
+  //         navigate("/login");
+  //       } else {
+  //         toast.error(data.message);
+  //       }
+  //     }
+  //   };
   // const handleOnChange = (event) => {
   //   let tempForm = { ...form };
   //   tempForm[event.target.name] = event.target.value;
@@ -86,10 +94,25 @@ const SignupForm = () => {
     <div>
       <h1>Signup Form</h1>
       <hr />
-      <Form onSubmit={handleOnSubmit}>
+      {/* <Form onSubmit={handleOnSubmit}> */}
+      <Form>
         {inputFields.map((item) => {
-          return <CustomInput {...item} onChange={handleOnChange} />;
+          return <CustomInput {...item} />;
+          //   return <CustomInput {...item} onChange={handleOnChange} />;
         })}
+        <Form.Group className="mb-3" controlId="formBasicSelect">
+          <Form.Label>Select User Type</Form.Label>
+          <Form.Select
+            aria-label="Default select example"
+            name="type"
+            // onChange={handleOnChange}
+            //   defaultValue={"student"}
+          >
+            {/* <option value="student" selected={form.type == "student"}> */}
+            <option value="student">Student</option>
+            <option value="admin">Admin</option>
+          </Form.Select>
+        </Form.Group>
 
         <Button variant="primary" type="submit">
           Submit
