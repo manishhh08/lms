@@ -1,17 +1,13 @@
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
 import mongodbConnection from "./src/config/mongodbConfig.js";
 import { config } from "./src/config/config.js";
 import { registerUser } from "./src/controller/authController.js";
 import authRouter from "./src/routes/authRouter.js";
 
-// Load environment variables from .env file
-dotenv.config();
-
 // Connect to MongoDB
 
-const PORT = config.port || 4001;
+const PORT = config.port;
 
 const app = express();
 app.use(cors());

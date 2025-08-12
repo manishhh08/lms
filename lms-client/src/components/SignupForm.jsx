@@ -105,19 +105,19 @@ const SignupForm = () => {
           return <CustomInput {...item} onChange={handleOnChange} />;
           //   return <CustomInput {...item} onChange={handleOnChange} />;
         })}
-        <Form.Group className="mb-3" controlId="formBasicSelect">
+        {/* <Form.Group className="mb-3" controlId="formBasicSelect">
           <Form.Label>Select User Type</Form.Label>
           <Form.Select
             aria-label="Default select example"
             name="type"
-            // onChange={handleOnChange}
-            //   defaultValue={"student"}
+            onChange={handleOnChange}
+              defaultValue={"student"}
           >
-            {/* <option value="student" selected={form.type == "student"}> */}
+            <option value="student" selected={form.type == "student"}>
             <option value="student">Student</option>
             <option value="admin">Admin</option>
           </Form.Select>
-        </Form.Group>
+        </Form.Group> */}
 
         <Button variant="primary" type="submit">
           Submit
