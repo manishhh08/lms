@@ -1,26 +1,26 @@
-import UserSchema from "./UserSchema.js";
+import User from "./UserSchema.js";
 
 //get all users
 export const getAllUsers = () => {
-  return UserSchema.find();
+  return User.find();
 };
 
 //get user by ID
 export const getUserById = (id) => {
-  return UserSchema.findById(id);
+  return User.findById(id);
 };
 
 //get user by email filter
-export const getUser = ({ filter }) => {
-  return UserSchema.findOne({ filter });
+export const getUser = (filter) => {
+  return User.findOne(filter);
 };
 
 //create or register new user
 export const createUser = (userObj) => {
-  return UserSchema.insertOne(userObj);
+  return User.insertOne(userObj);
 };
 
 //update user by ID
 export const updateUserById = (id, userObj) => {
-  return UserSchema.findByIdAndUpdate(id, userObj);
+  return User.findByIdAndUpdate(id, userObj);
 };
