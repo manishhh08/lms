@@ -23,10 +23,10 @@ export const loginUser = async (obj) => {
 };
 
 //get user detail
-export const getUserDetail = async () => {
+export const fetchUserDetail = async () => {
   return apiProcessor({
     method: "get",
-    url: `${apiUrl}/auth/user`,
+    url: `${apiUrl}/user/detail`,
     isPrivate: true,
   });
 };
@@ -36,5 +36,15 @@ export const verifyUser = async (token, email) => {
     method: "get",
     url: `${apiUrl}/verify-email?t=${token}&email=${email}`,
     isPrivate: false,
+  });
+};
+
+// refresh token
+export const refreshTokenApi = () => {
+  return apiProcessor({
+    method: "get",
+    url: `${apiUrl}/auth/refresh-token`,
+    isPrivate: true,
+    isRefresh: true,
   });
 };

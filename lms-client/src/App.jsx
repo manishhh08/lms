@@ -10,8 +10,19 @@ import Dashboard from "./pages/Dashboard";
 import PrivateLayout from "./components/layout/PrivateLayout";
 import VerifyEmail from "./pages/VerifyEmail";
 import Auth from "./auth/Auth";
+import { getUserDetail } from "./features/user/userAction";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 function App() {
+  const dispatch = useDispatch();
+  const autoLogIn = async () => {
+    let data = await dispatch(getUserDetail());
+  };
+
+  useEffect(() => {
+    autoLogIn();
+  }, []);
   return (
     <>
       <div className="wrapper">

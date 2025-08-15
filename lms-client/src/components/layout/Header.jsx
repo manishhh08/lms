@@ -60,7 +60,7 @@ const Header = () => {
               <Button
                 onClick={() => {
                   //remove user data from context
-                  alert("Logout clicked");
+                  //alert("Logout clicked");
                   setUser(null);
                   localStorage.removeItem("accessToken");
                   navigate("/login");
