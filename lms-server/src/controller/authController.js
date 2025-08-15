@@ -35,7 +35,7 @@ export const loginUser = async (req, res) => {
     let { email, password } = req.body;
 
     // fetch user fro database
-    let user = await getUser(email);
+    let user = await getUser({ email });
     // if (!user?.status && !user?.isEmailVerified) {
     //   return res.status(401).json({
     //     status: false,
