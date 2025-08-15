@@ -4,6 +4,7 @@ import mongodbConnection from "./src/config/mongodbConfig.js";
 import { config } from "./src/config/config.js";
 import { registerUser } from "./src/controller/authController.js";
 import authRouter from "./src/routes/authRouter.js";
+import userRouter from "./src/routes/userRouter.js";
 
 // Connect to MongoDB
 
@@ -20,9 +21,11 @@ app.get("/", (req, res) => {
   });
 });
 
+// Auth router
+app.use("/api/v1/auth", authRouter);
 // User routes
 
-app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/user", userRouter);
 // Start the server
 mongodbConnection()
   .then(() => {
