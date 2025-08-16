@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { logoutAction } from "../../features/user/userAction";
 // import { useUser } from "../../context/userContext";
 
 const Header = () => {
   //   const { user, setUser } = useUser();
-  const [user, setUser] = useState({});
-  const navigate = useNavigate();
+  // const [user, setUser] = useState({});
+  const { user } = useSelector((store) => store.userStore);
+  const dispatch = useDispatch();
   return (
     <Navbar
       expand="lg"
@@ -19,21 +22,17 @@ const Header = () => {
         <Navbar.Brand href="/dashboard">LMS</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          {/* <Nav className="ms-auto">
+          <Nav className="ms-auto">
             {user && user._id ? (
               <>
                 <Nav.Link as={Link} to="/dashboard">
                   Dashboard
                 </Nav.Link>
-                <Nav.Link as={Link} to="/transaction">
-                  Transaction
-                </Nav.Link>
 
                 <Button
                   onClick={() => {
-                    //remove user data from context
-                    setUser({});
-                    localStorage.removeItem("accessToken");
+                    // remove user data onclick
+                    dispatch(logoutAction());
                   }}
                 >
                   Logout
@@ -49,32 +48,6 @@ const Header = () => {
                 </Nav.Link>
               </>
             )}
-          </Nav> */}
-
-          <Nav className="ms-auto">
-            <>
-              <Nav.Link as={Link} to="/dashboard">
-                Dashboard
-              </Nav.Link>
-
-              <Button
-                onClick={() => {
-                  //remove user data from context
-                  //alert("Logout clicked");
-                  setUser(null);
-                  localStorage.removeItem("accessToken");
-                  navigate("/login");
-                }}
-              >
-                Logout
-              </Button>
-              <Nav.Link as={Link} to="/signup">
-                Signup
-              </Nav.Link>
-              <Nav.Link as={Link} to="/login">
-                Login
-              </Nav.Link>
-            </>
           </Nav>
         </Navbar.Collapse>
       </Container>

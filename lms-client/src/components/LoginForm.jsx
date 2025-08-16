@@ -2,17 +2,16 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import CustomInput from "./CustomInput";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
-// import { loginUser } from "../utils/axiosHelper";s
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
-import { loginUser } from "../features/user/userAPI";
-// import { useUser } from "../context/userContext";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUserAction } from "../features/user/userAction";
 
 const LoginForm = () => {
-  const [user, setUser] = useState();
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
 
   let initialState = {
     email: "",
@@ -44,19 +43,14 @@ const LoginForm = () => {
     e.preventDefault();
     // alert("login successful");
 
-    let data = await loginUser(form);
+    // let data = await loginUser(form);
+    const data = await dispatch(loginUserAction(form));
     console.log("response:", data);
-    if (data.status) {
-      toast.success(data.message);
+    toast[data.status](data.message);
 
-      setUser(data.user);
+    if (data.status === "success") {
       // redirect to dashboard
       navigate("/dashboard");
-
-      //store access token in local storage
-      localStorage.setItem("accessToken", data.accessToken);
-    } else {
-      toast.error(data.message);
     }
   };
 
@@ -65,6 +59,13 @@ const LoginForm = () => {
     tempForm[e.target.name] = e.target.value;
     setForm(tempForm);
   };
+
+  const { user } = useSelector((store) => store.userStore);
+  let previousLocation = location.state?.from?.location || "/dashboard";
+
+  useEffect(() => {
+    user?._id && navigate(previousLocation);
+  }, [user?._id]);
   return (
     <>
       <h1>Login Here</h1>
