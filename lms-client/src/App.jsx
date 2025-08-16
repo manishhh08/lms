@@ -39,10 +39,9 @@ function App() {
             <Route
               path="/dashboard"
               element={
-                // <Auth>
-                //   <Dashboard />
-                // </Auth>
-                <Dashboard />
+                <Auth>
+                  <Dashboard />
+                </Auth>
               }
             />
           </Route>

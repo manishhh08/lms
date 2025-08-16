@@ -5,7 +5,6 @@ import {
   storeAccessToken,
 } from "./storageFunction";
 import { refreshTokenApi } from "../features/user/userAPI";
-// const apiUrl = process.env.VITE_APP_API_URL + "/api/v1";
 
 // axios helper function to handle API requests
 export const apiProcessor = async ({
@@ -45,7 +44,7 @@ export const apiProcessor = async ({
       }
     } else {
       return {
-        status: false,
+        status: "error",
         message:
           err?.response?.data?.message ||
           "An error occurred while processing your request.",

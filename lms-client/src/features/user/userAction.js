@@ -3,6 +3,7 @@ import {
   deleteRefreshToken,
   storeAccessToken,
   storeRefreshToken,
+  storeToken,
 } from "../../utils/storageFunction";
 import { fetchUserDetail, loginUser } from "./userAPI";
 import { setUser } from "./userSlice";
@@ -23,9 +24,9 @@ export const loginUserAction = (form) => async (dispatch) => {
   // if success then
   if (data.status === "success") {
     // accessToken store
-    storeAccessToken(data.accessToken, "access");
+    storeToken(data.accessToken, "access");
     // refreshToken store
-    storeRefreshToken(data.refreshToken, "refresh");
+    storeToken(data.refreshToken, "refresh");
     // retrieve user detail
     dispatch(getUserDetail());
   }
@@ -33,7 +34,7 @@ export const loginUserAction = (form) => async (dispatch) => {
 };
 
 export const logoutAction = () => (dispatch) => {
-  dispatch(setUser());
+  dispatch(setUser({}));
   deleteAccessToken();
   deleteRefreshToken();
 };
