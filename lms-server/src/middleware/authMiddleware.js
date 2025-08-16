@@ -10,7 +10,7 @@ export const authMiddleware = async (req, res, next) => {
     console.log("Return value", decoded);
     let user = await getUser({ email: decoded.email });
 
-    if (user) {
+    if (user && user?.accessToken.includes(accessToken)) {
       user.password = "";
       req.user = user;
       next();
@@ -18,12 +18,15 @@ export const authMiddleware = async (req, res, next) => {
       res.status(401).json({ status: "error", message: "Unauthorized" });
     }
   } catch (err) {
-    console.log("error:", err?.message);
+    console.log("Auth error:", err?.message);
+    let errorMessage = err?.message.includes("jwt expire")
+      ? err.message
+      : "Server Error";
 
-    let errorMessage = err?.message.includes("jwt expire") ? 401 : 500;
+    let statusCode = err.message.includes("jwt expire") ? 401 : 500;
     return res
       .status(statusCode)
-      .json({ message: errorMessage, status: "success" });
+      .json({ message: errorMessage, status: "error" });
   }
 };
 
@@ -52,6 +55,6 @@ export const refreshMiddleware = async (req, res, next) => {
     let statusCode = err.message.includes("jwt expire") ? 401 : 500;
     return res
       .status(statusCode)
-      .json({ message: errorMessage, status: "Error" });
+      .json({ message: errorMessage, status: "error" });
   }
 };

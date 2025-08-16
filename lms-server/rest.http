@@ -7,9 +7,8 @@ Content-Type: application/json
  
  {
     "role": "admin",
-    "firstName": "Admin",
-    "lastName": "Here",
-    "email": "hello@gmail.com",
+   "fullName":"user",
+    "email": "user@gmail.com",
     "password":"1234",
     "phone": "1234567890"
 
@@ -20,6 +19,10 @@ POST {{apiUrl}}/auth/login
 Content-Type: application/json
 
    {
-      "email": "hello@gmail.com",
+      "email": "user@gmail.com",
       "password": "1234"
    }
+
+###
+GET {{apiUrl}}/user/detail
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZ21haWwuY29tIiwiaWF0IjoxNzU1MzQ4MDUyLCJleHAiOjE3NTU0MzQ0NTJ9.c91GNUOhFGTqfA10Q-L1GS8vKFNBzbP41wqBejfVNxE

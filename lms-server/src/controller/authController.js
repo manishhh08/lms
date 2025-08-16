@@ -1,25 +1,27 @@
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-
-import { createUser, getUser } from "../models/users/UserModel.js";
+import {
+  createUser,
+  getUser,
+  updateUserById,
+} from "../models/users/UserModel.js";
+import { decodeFunction, encodeFunction } from "../utils/encodehelper.js";
+import { createAccessToken, createRefreshToken } from "../utils/jwt.js";
 
 export const registerUser = async (req, res) => {
   try {
     let userObj = req.body;
 
-    let salt = bcrypt.genSaltSync(10);
-    userObj.password = bcrypt.hashSync(userObj.password, salt);
+    userObj.password = encodeFunction(userObj.password);
 
     let newUser = await createUser(userObj);
 
     return res.status(201).json({
-      status: true,
+      status: "success",
       message: "User registered successfully",
     });
   } catch (err) {
     console.log(err);
     return res.json({
-      status: false,
+      status: "error",
       message: "Error registering user",
       //   error: err.message,
     });
@@ -29,9 +31,6 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   try {
     // login user
-    // let email = req.body.email;
-    // let pasword = req.body.password;
-
     let { email, password } = req.body;
 
     // fetch user fro database
@@ -47,7 +46,7 @@ export const loginUser = async (req, res) => {
     if (user) {
       // user found then compare user.password -> db password
 
-      let passwordMatch = bcrypt.compareSync(password, user.password);
+      let passwordMatch = decodeFunction(password, user.password);
       if (passwordMatch) {
         user.password = "";
 
@@ -55,33 +54,37 @@ export const loginUser = async (req, res) => {
           email: user.email,
         };
 
-        let accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
-          expiresIn: process.env.EXPIRES_IN,
-        });
+        let accessToken = createAccessToken(payload);
 
+        let refreshToken = createRefreshToken(payload);
+
+        await updateUserById(user._id, {
+          refreshToken,
+          accessToken: [...user.accessToken, accessToken],
+        });
         return res.status(200).json({
-          status: true,
+          status: "success",
           message: "Login Successful",
-          user,
           accessToken,
+          refreshToken,
         });
       } else {
         return res.status(401).json({
-          status: false,
+          status: "error",
           message: "User not authenticated!",
         });
       }
     } else {
       // user not found
       return res.status(401).json({
-        status: false,
+        status: "error",
         message: "The combination of email and password is incorrect!",
       });
     }
   } catch (err) {
     console.log(err.message);
     return res.status(500).json({
-      status: false,
+      status: "error",
       message: "SERVER ERROR",
     });
   }
