@@ -11,18 +11,18 @@ export const deleteAccessToken = () => {
 };
 
 export const storeRefreshToken = (token) => {
-  sessionStorage.setItem("accessToken", token);
+  localStorage.setItem("refreshToken", token);
 };
 
 export const getRefreshToken = () => {
-  return sessionStorage.getItem("refreshToken");
+  return localStorage.getItem("refreshToken");
 };
 
 export const deleteRefreshToken = () => {
-  sessionStorage.removeItem("refreshToken");
+  localStorage.removeItem("refreshToken");
 };
 
-export const storeToken = () => {
+export const storeToken = (token, type) => {
   if (type == "access") storeAccessToken(token);
   if (type == "refresh") storeRefreshToken(token);
 };
