@@ -19,7 +19,7 @@ export const getUserDetail = () => async (dispatch) => {
 };
 
 export const loginUserAction = (form) => async (dispatch) => {
-  let data = await loginUser();
+  let data = await loginUser(form);
 
   // if success then
   if (data.status === "success") {
