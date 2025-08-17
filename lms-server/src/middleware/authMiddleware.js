@@ -1,4 +1,3 @@
-import jwt from "jsonwebtoken";
 import { getUser } from "../models/users/UserModel.js";
 import { decodeAccessToken, decodeRefreshToken } from "../utils/jwt.js";
 
@@ -18,8 +17,8 @@ export const authMiddleware = async (req, res, next) => {
       res.status(401).json({ status: "error", message: "Unauthorized" });
     }
   } catch (err) {
-    console.log("Auth error:", err?.message);
-    let errorMessage = err?.message.includes("jwt expire")
+    console.log("Auth error:", err.message);
+    let errorMessage = err.message.includes("jwt expire")
       ? err.message
       : "Server Error";
 
