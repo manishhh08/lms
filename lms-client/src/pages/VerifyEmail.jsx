@@ -15,7 +15,7 @@ const VerifyEmail = () => {
 
   const handleOnClick = async () => {
     //setIsLoading(true);
-    alert("VERIFY");
+    // alert("VERIFY");
     const token = urlParams.get("t");
     console.log(token);
     const email = urlParams.get("email");
@@ -61,7 +61,7 @@ const VerifyEmail = () => {
             ) : (
               <>
                 <Button variant="primary" onClick={handleOnClick}>
-                  Verifiy
+                  Verify
                 </Button>
                 {/* <Button variant="primary" onClick={handleOnResend}>
                   Resend Token

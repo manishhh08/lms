@@ -34,7 +34,7 @@ export const fetchUserDetail = async () => {
 export const verifyUser = async (token, email) => {
   return apiProcessor({
     method: "get",
-    url: `${apiUrl}/verify-email?t=${token}&email=${email}`,
+    url: `${apiUrl}/auth/verify-email?t=${token}&email=${email}`,
     isPrivate: false,
   });
 };
