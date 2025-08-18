@@ -10,17 +10,20 @@ const PrivateLayout = () => {
     <Container fluid>
       <Row>
         <Col xs={3}>
-          <Sidebar />
+          <Row>
+            <Sidebar />
+          </Row>
         </Col>
 
         <Col xs={9}>
-          <Header />
-          <main className="main">
-            {/* Content goes here */}
-            <Outlet />
-          </main>
-          {/* Footer can be added here if needed */}
-          <Footer />
+          <Row>
+            <Header />
+            <main className="main">
+              {/* Content goes here */}
+              <Outlet />
+            </main>
+            <Footer />
+          </Row>
         </Col>
       </Row>
     </Container>

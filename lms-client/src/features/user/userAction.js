@@ -1,8 +1,6 @@
 import {
   deleteAccessToken,
   deleteRefreshToken,
-  storeAccessToken,
-  storeRefreshToken,
   storeToken,
 } from "../../utils/storageFunction";
 import { fetchUserDetail, loginUser } from "./userAPI";

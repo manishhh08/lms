@@ -12,6 +12,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+  // console.log(location);
 
   let initialState = {
     email: "",
@@ -61,7 +62,7 @@ const LoginForm = () => {
   };
 
   const { user } = useSelector((store) => store.userStore);
-  let previousLocation = location.state?.from?.location || "/dashboard";
+  let previousLocation = location.state?.from?.pathname || "/dashboard";
 
   useEffect(() => {
     user?._id && navigate(previousLocation);
