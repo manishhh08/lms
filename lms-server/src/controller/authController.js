@@ -3,8 +3,10 @@ import {
   getUser,
   updateUserById,
 } from "../models/users/UserModel.js";
+import { sendEmailVerification } from "../utils/emailProcessor.js";
 import { decodeFunction, encodeFunction } from "../utils/encodehelper.js";
 import { createAccessToken, createRefreshToken } from "../utils/jwt.js";
+import { v4 as uuidv4 } from "uuid";
 
 export const registerUser = async (req, res) => {
   try {
@@ -14,17 +16,43 @@ export const registerUser = async (req, res) => {
 
     let newUser = await createUser(userObj);
 
+    if (newUser._id) {
+      // create unique token and store in db
+      const emailVerificationToken = uuidv4();
+
+      const result = await updateUserById(newUser._id, {
+        emailVerificationToken,
+      });
+
+      // send email verification with token
+
+      const url =
+        process.env.APP_URL +
+        `/verify-email?t=${emailVerificationToken}&email=${newUser.email}`;
+
+      sendEmailVerification({
+        to: newUser.email,
+        url,
+        userName: newUser.userName,
+      });
+    }
     return res.status(201).json({
       status: "success",
-      message: "User registered successfully",
+      message: "User registered successfully, please verify your email",
     });
   } catch (err) {
-    console.log(err);
-    return res.json({
-      status: "error",
-      message: "Error registering user",
-      //   error: err.message,
-    });
+    console.log(err.message);
+    if (err.message.includes("E11000")) {
+      return res.status(400).json({
+        status: false,
+        message: "Invalid email or username",
+      });
+    } else {
+      return res.status(500).json({
+        status: false,
+        message: "Server Error",
+      });
+    }
   }
 };
 
@@ -34,14 +62,14 @@ export const loginUser = async (req, res) => {
     let { email, password } = req.body;
 
     // fetch user fro database
-    let user = await getUser({ email });
-    // if (!user?.status && !user?.isEmailVerified) {
-    //   return res.status(401).json({
-    //     status: false,
-    //     message:
-    //       "Your email is not verified or account is inactive, contact admin!",
-    //   });
-    // }
+    let user = await getUser({ email: email });
+    if (!user?.status && !user?.isEmailVerified) {
+      return res.status(401).json({
+        status: "error",
+        message:
+          "Your email is not verified or account is inactive, contact admin!",
+      });
+    }
 
     if (user) {
       // user found then compare user.password -> db password
@@ -71,7 +99,7 @@ export const loginUser = async (req, res) => {
       } else {
         return res.status(401).json({
           status: "error",
-          message: "User not authenticated!",
+          message: "Invalid login detail",
         });
       }
     } else {
@@ -105,7 +133,7 @@ export const verifyEmail = async (req, res) => {
 
       if (user.isEmailVerified) {
         return res.json({
-          status: false,
+          status: "error",
           message: "User already verified",
         });
       }
@@ -116,12 +144,12 @@ export const verifyEmail = async (req, res) => {
         await user.save();
 
         return res.json({
-          status: true,
+          status: "success",
           message: "Verified",
         });
       } else {
         return res.json({
-          status: false,
+          status: "error",
           message: "Email could not be verified",
         });
       }

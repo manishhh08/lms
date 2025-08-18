@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 
 //send email function
-export const sendEmail = async (obj) => {
+export const processEmail = async (obj) => {
   try {
     const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_SMTP,
@@ -42,5 +42,5 @@ export const sendEmailVerification = async ({ to, url }) => {
     <p>Best regards,</p>
     <p>Team Library Management System</p>`,
   };
-  await sendEmail(obj);
+  await processEmail(obj);
 };

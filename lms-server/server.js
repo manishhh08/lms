@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongodbConnection from "./src/config/mongodbConfig.js";
 import { config } from "./src/config/config.js";
-import { registerUser } from "./src/controller/authController.js";
+import { registerUser, verifyEmail } from "./src/controller/authController.js";
 import authRouter from "./src/routes/authRouter.js";
 import userRouter from "./src/routes/userRouter.js";
 
@@ -23,6 +23,9 @@ app.get("/", (req, res) => {
 
 // Auth router
 app.use("/api/v1/auth", authRouter);
+
+// Email verification router
+// app.use("/api/v1/verify-email", verifyEmail);
 // User routes
 
 app.use("/api/v1/user", userRouter);
