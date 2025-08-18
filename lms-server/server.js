@@ -5,7 +5,7 @@ import { config } from "./src/config/config.js";
 import { registerUser, verifyEmail } from "./src/controller/authController.js";
 import authRouter from "./src/routes/authRouter.js";
 import userRouter from "./src/routes/userRouter.js";
-
+import bookRouter from "./src/routes/bookRouter.js";
 // Connect to MongoDB
 
 const PORT = config.port;
@@ -21,14 +21,14 @@ app.get("/", (req, res) => {
   });
 });
 
-// Auth router
+// Auth routes
 app.use("/api/v1/auth", authRouter);
 
-// Email verification router
-// app.use("/api/v1/verify-email", verifyEmail);
 // User routes
-
 app.use("/api/v1/user", userRouter);
+
+//book routes
+app.use("/api/v1/book", bookRouter);
 // Start the server
 mongodbConnection()
   .then(() => {
