@@ -13,6 +13,11 @@ import Auth from "./auth/Auth";
 import { getUserDetail } from "./features/user/userAction";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import Admin from "./pages/Admin";
+import Book from "./pages/Book";
+import Borrow from "./pages/Borrow";
+import User from "./pages/User";
+import Review from "./pages/Review";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,14 +41,56 @@ function App() {
           </Route>
 
           <Route path="/" element={<PrivateLayout />}>
-            <Route
-              path="/dashboard"
-              element={
-                <Auth>
-                  <Dashboard />
-                </Auth>
-              }
-            />
+            <>
+              <Route
+                path="/dashboard"
+                element={
+                  <Auth>
+                    <Dashboard />
+                  </Auth>
+                }
+              />
+              <Route
+                path="/admin"
+                element={
+                  <Auth>
+                    <Admin />
+                  </Auth>
+                }
+              />
+              <Route
+                path="/books"
+                element={
+                  <Auth>
+                    <Book />
+                  </Auth>
+                }
+              />
+              <Route
+                path="/Borrow"
+                element={
+                  <Auth>
+                    <Borrow />
+                  </Auth>
+                }
+              />
+              <Route
+                path="/review"
+                element={
+                  <Auth>
+                    <Review />
+                  </Auth>
+                }
+              />
+              <Route
+                path="/users"
+                element={
+                  <Auth>
+                    <User />
+                  </Auth>
+                }
+              />
+            </>
           </Route>
 
           {/* Other routes can be added here */}
