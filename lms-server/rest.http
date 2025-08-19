@@ -6,7 +6,7 @@ POST {{apiUrl}}/auth/register
 Content-Type: application/json
  
  {
-    "role": "admin",
+    "role": "student",
    "fullName":"user",
     "email": "user@gmail.com",
     "password":"1234",
@@ -25,4 +25,25 @@ Content-Type: application/json
 
 ###
 GET {{apiUrl}}/user/detail
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZ21haWwuY29tIiwiaWF0IjoxNzU1MzQ4MDUyLCJleHAiOjE3NTU0MzQ0NTJ9.c91GNUOhFGTqfA10Q-L1GS8vKFNBzbP41wqBejfVNxE
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZ21haWwuY29tIiwiaWF0IjoxNzU1NTY1MTcxLCJleHAiOjE3NTU2NTE1NzF9.e0dvYbpI7BGy_flAbEw9_UOGF_76fvleK8UBPndryKY
+
+
+# books requests
+
+###
+GET {{apiUrl}}/books/getall
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZ21haWwuY29tIiwiaWF0IjoxNzU1NTY1MTcxLCJleHAiOjE3NTU2NTE1NzF9.e0dvYbpI7BGy_flAbEw9_UOGF_76fvleK8UBPndryKY
+
+###
+POST {{apiUrl}}/books
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZ21haWwuY29tIiwiaWF0IjoxNzU1NTY1MTcxLCJleHAiOjE3NTU2NTE1NzF9.e0dvYbpI7BGy_flAbEw9_UOGF_76fvleK8UBPndryKY
+
+{
+"bookTitle" : "book1s",
+"author" : "book author",
+"thumbnail" : "https://wallpapercave.com/wp/rdYAno5.jpg",
+"isbn" : "123982223",
+"genre": "horror",
+"publishedYear" : 2020,
+"description" : "optional"
+}

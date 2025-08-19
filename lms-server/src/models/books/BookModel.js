@@ -1,27 +1,39 @@
 import Books from "./BookSchema.js";
 
-// get all books
-export const getAllBooks = () => {
-  return Books.find();
+// // create book
+// export const insertBook = (bookObj) => {
+//   return Books(bookObj).save();
+// };
+
+// // get all book
+// export const getAllBooks = (filterObj) => {
+//   return Books.find(filterObj);
+// };
+
+// //update book
+// export const updateBook = (_id, bookObj) => {
+//   return Books.findByIdAndUpdate(_id, bookObj);
+// };
+// //delte book
+// export const deleteBook = (_id) => {
+//   return Books.findByIdAndDelete(_id);
+// };
+
+// create book
+export const insertBook = (bookObj) => {
+  return Books(bookObj).save();
 };
 
-// get book my name
-export const getBooks = (filter) => {
-  return Books.findOne(filter);
+// get all book
+export const getAllBooks = (filterObj) => {
+  return Books.find(filterObj);
 };
 
-// add new book
-export const addBook = (bookObj) => {
-  return Books.insertOne(bookObj);
+//update book
+export const updateBook = (_id, bookObj) => {
+  return Books.findByIdAndUpdate(_id, bookObj);
 };
-
-// delete single/multiple book
-export const deleteBooks = (idsToDelete, bookId) => {
-  return Books.deleteMany({
-    _id: { $in: idsToDelete },
-    bookId: bookId,
-  });
+//delte book
+export const deleteBook = (_id) => {
+  return Books.findByIdAndDelete(_id);
 };
-
-// update book detail
-// export const updateBook=(bid)

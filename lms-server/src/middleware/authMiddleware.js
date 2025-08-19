@@ -57,3 +57,14 @@ export const refreshMiddleware = async (req, res, next) => {
       .json({ message: errorMessage, status: "error" });
   }
 };
+
+export const isAdmin = async (req, res, next) => {
+  if (req.user.role == "admin") {
+    next();
+  } else {
+    return res.json({
+      status: "error",
+      message: "User not authorized!",
+    });
+  }
+};
