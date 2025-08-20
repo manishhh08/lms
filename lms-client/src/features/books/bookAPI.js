@@ -20,3 +20,12 @@ export const addNewBook = async (obj) => {
     isPrivate: true,
   });
 };
+
+export const updateBookApi = async ({ _id, ...bookObj }) => {
+  return apiProcessor({
+    method: "Put",
+    url: `${apiUrl}/books/${_id}`,
+    isPrivate: true,
+    data: bookObj,
+  });
+};
