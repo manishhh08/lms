@@ -1,13 +1,12 @@
 // import { date, number, required } from "joi";
+
 import mongoose from "mongoose";
-// import BookSchema from "../users/BookSchema.js";
 
 const BookSchema = new mongoose.Schema(
   {
     status: {
       type: String,
       enum: ["available", "unavailable"],
-      required: true,
       default: "unavailable",
     },
 
@@ -20,13 +19,13 @@ const BookSchema = new mongoose.Schema(
       required: true,
     },
     publishedYear: {
-      type: Date,
+      type: Number,
       required: true,
     },
     isbn: {
       type: String,
+      unique: true,
       index: 1,
-      // unique: true,
       required: true,
     },
     description: {
@@ -48,6 +47,10 @@ const BookSchema = new mongoose.Schema(
     averageRating: {
       type: Number,
       default: 0,
+    },
+    thumbnail: {
+      type: String,
+      required: true,
     },
   },
   { timestamps: true }

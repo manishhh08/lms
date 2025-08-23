@@ -30,7 +30,7 @@ export const getAllBooks = (filterObj) => {
 };
 
 //update book
-export const updateBook = (_id, bookObj) => {
+export const updateBookById = (_id, bookObj) => {
   return Books.findByIdAndUpdate(_id, bookObj);
 };
 //delte book
