@@ -17,6 +17,61 @@ const AddNewBook = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [addBook, setAddBook] = useState({
+    publishedYear: 0,
+    bookTitle: "",
+    author: "",
+    genre: "",
+    isbn: "",
+    description: "",
+  });
+
+  const bookObject = [
+    {
+      title: "Add New Book",
+      description: "Fill in the details of the book you want to add.",
+      fields: [
+        {
+          name: "title",
+          label: "Title",
+          type: "text",
+          placeholder: "Enter book title",
+        },
+        {
+          name: "author",
+          label: "Author",
+          type: "text",
+          placeholder: "Enter author's name",
+        },
+        {
+          name: "isbn",
+          label: "ISBN",
+          type: "number",
+          placeholder: "Enter ISBN number",
+        },
+        {
+          name: "publishedYear",
+          label: "Published Date",
+          type: "number",
+          placeholder: "Select published date",
+        },
+        {
+          name: "genre",
+          label: "Genre",
+          type: "text",
+          placeholder: "Enter book genre",
+        },
+        {
+          name: "description",
+          label: "Description",
+          type: "textarea",
+          placeholder: "Enter a brief description of the book",
+        },
+      ],
+      submitButton: "Add Book",
+      cancelButton: "Cancel",
+    },
+  ];
   const handleOnChange = (e) => {
     setAddBook({
       ...addBook,
@@ -38,14 +93,6 @@ const AddNewBook = () => {
     navigate("/books");
   };
 
-  const [addBook, setAddBook] = useState({
-    year: new Date().toISOString().split("T")[0],
-    bookTitle: "",
-    author: "",
-    genre: "",
-    imdb: "",
-    description: "",
-  });
   return (
     <>
       <Container>
@@ -78,27 +125,23 @@ const AddNewBook = () => {
             </FloatingLabel>
             <FloatingLabel
               controlId="floatingInput"
-              label="Date(YYYY-MM-DD)"
+              label="Year"
               className="mb-3"
               onChange={handleOnChange}
               value={addBook.date}
             >
-              <Form.Control type="date" placeholder="2023-09-22" required />
+              <Form.Control type="number" placeholder="1990" required />
             </FloatingLabel>
 
-            <Form.Select
-              aria-label="Default select example"
+            <FloatingLabel
+              controlId="floatingInput"
+              label="ISBN"
               className="mb-3"
               onChange={handleOnChange}
-              value={addBook.imdb}
+              value={addBook.isbn}
             >
-              {/* <option>IMDB rating</option> */}
-              <option value="1" selected>
-                1
-              </option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </Form.Select>
+              <Form.Control type="number" placeholder="Author" required />
+            </FloatingLabel>
             <FloatingLabel
               controlId="floatingInput"
               label="Description"

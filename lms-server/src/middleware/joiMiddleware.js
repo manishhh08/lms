@@ -19,6 +19,18 @@ export const loginValidation = (req, res, next) => {
   joiValidator(loginSchema, req, res, next);
 };
 
+export const createUserValidation = (req, res, next) => {
+  let createUserSchema = Joi.object({
+    name: Joi.string().required(),
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
+    cpassword: Joi.string().required(),
+    phone: Joi.string(),
+  });
+
+  joiValidator(createUserSchema, req, res, next);
+};
+
 export const createBookValidation = (req, res, next) => {
   // validation
   // if passed go to next

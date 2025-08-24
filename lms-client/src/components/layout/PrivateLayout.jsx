@@ -7,23 +7,21 @@ import { Col, Container, Row } from "react-bootstrap";
 
 const PrivateLayout = () => {
   return (
-    <Container fluid>
-      <Row>
+    <Container fluid className="p-0">
+      <Row className="g-0 min-vh-100">
+        {" "}
+        {/* remove gutters + full height */}
+        {/* Sidebar */}
         <Col xs={3}>
-          <Row>
-            <Sidebar />
-          </Row>
+          <Sidebar />
         </Col>
-
-        <Col xs={9}>
-          <Row>
-            <Header />
-            <main className="main">
-              {/* Content goes here */}
-              <Outlet />
-            </main>
-            <Footer />
-          </Row>
+        {/* Main section */}
+        <Col xs={9} className="d-flex flex-column">
+          <Header />
+          <main className="flex-grow-1">
+            <Outlet />
+          </main>
+          <Footer />
         </Col>
       </Row>
     </Container>
