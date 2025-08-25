@@ -3,6 +3,7 @@ import {
   createBook,
   fetchAllBooks,
   fetchBooks,
+  updateBook,
 } from "../controller/bookController.js";
 import { authMiddleware, isAdmin } from "../middleware/authMiddleware.js";
 import { createBookValidation } from "../middleware/joiMiddleware.js";
@@ -18,5 +19,5 @@ router.get("/", authMiddleware, isAdmin, fetchAllBooks);
 
 router.post("/", createBookValidation, authMiddleware, isAdmin, createBook);
 
-router.put("/:id", authMiddleware, isAdmin, updateBookById);
+router.put("/:id", authMiddleware, isAdmin, updateBook);
 export default router;

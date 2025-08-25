@@ -19,6 +19,7 @@ import Borrow from "./pages/Borrow";
 import User from "./pages/User";
 import Review from "./pages/Review";
 import AddNewBook from "./components/AddNewBook";
+import EditBook from "./pages/EditBook";
 
 function App() {
   const dispatch = useDispatch();
@@ -68,7 +69,7 @@ function App() {
                 }
               />
               <Route
-                path="/Borrow"
+                path="/borrow"
                 element={
                   <Auth>
                     <Borrow />
@@ -92,10 +93,18 @@ function App() {
                 }
               />
               <Route
-                path="/add-book"
+                path="/books/add-book"
                 element={
                   <Auth>
                     <AddNewBook />
+                  </Auth>
+                }
+              />
+              <Route
+                path="/books/edit-book"
+                element={
+                  <Auth>
+                    <EditBook />
                   </Auth>
                 }
               />

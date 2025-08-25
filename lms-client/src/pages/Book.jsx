@@ -15,6 +15,7 @@ import {
   fetchAllBooksAction,
   updateBookAction,
 } from "../features/books/bookAction";
+import { setSelectedBook } from "../features/books/bookSlice";
 
 const Book = () => {
   const navigate = useNavigate();
@@ -79,6 +80,10 @@ const Book = () => {
                       />{" "}
                       {book.title}
                     </td> */}
+                    <td>{book.bookTitle}</td>
+                    <td>{book.author}</td>
+                    <td>{book.isAvailable ? "Available" : "Not Available"}</td>
+                    {/* <td>{book.expectedAvailable?.split("T")[0]}</td> */}
                     <td>
                       {/* <input
                     type="checkbox"
@@ -94,6 +99,7 @@ const Book = () => {
                       );
                     }}
                   />{" "} */}
+
                       <Form.Check
                         type="switch"
                         id="custom-switch"
@@ -108,26 +114,28 @@ const Book = () => {
                         }}
                       />
                     </td>
-                    <td>{book.isAvailable ? "Available" : "Not Available"}</td>
-                    <td>{book.expectedAvailable?.split("T")[0]}</td>
                     <td>
                       <Button
                         variant="danger"
                         className="d-inline-flex justify-content-center me-2"
-                      ></Button>
+                      >
+                        Delete
+                      </Button>
                       <Button
                         variant="warning"
                         className="d-inline-flex justify-content-center"
                         onClick={() => {
-                          let selectedBook = books.find(
-                            (b) => b._id == book._id
-                          );
-                          console.log(selectedBook);
+                          // let selectedBook = book.find(
+                          //   (b) => b._id == book._id
+                          // );
+                          // console.log(selectedBook);
                           // update the selected book
-                          dispatch(setSelectedBooks(selectedBook));
+                          dispatch(setSelectedBook(book));
                           navigate("/books/edit-books");
                         }}
-                      ></Button>
+                      >
+                        Edit
+                      </Button>
                     </td>
                   </tr>
                 );

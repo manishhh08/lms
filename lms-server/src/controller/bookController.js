@@ -61,3 +61,31 @@ export const createBook = async (req, res, next) => {
     });
   }
 };
+
+//update book
+// update book
+export const updateBook = async (req, res, next) => {
+  try {
+    //id
+    let id = req.params.id;
+    // add book
+    let book = await updateBookById(id, req.body);
+    return res.json({
+      status: "success",
+      message: "Book Update",
+      book,
+    });
+  } catch (err) {
+    console.log(err);
+    let message = "Book creation Failed!";
+    let statusCode = 500;
+    if (err.message.includes("E11000")) {
+      message = message + err.message;
+      statusCode = 400;
+    }
+    return res.status(statusCode).json({
+      status: "error",
+      message,
+    });
+  }
+};
