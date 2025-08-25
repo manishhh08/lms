@@ -12,12 +12,13 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { setBook } from "../features/books/bookSlice";
+import { createBookAction } from "../features/books/bookAction";
 
 const AddNewBook = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [addBook, setAddBook] = useState({
+  const [form, setForm] = useState({
     publishedYear: 0,
     bookTitle: "",
     author: "",
@@ -32,8 +33,8 @@ const AddNewBook = () => {
       description: "Fill in the details of the book you want to add.",
       fields: [
         {
-          name: "title",
-          label: "Title",
+          name: "bookTitle",
+          label: "BookTitle",
           type: "text",
           placeholder: "Enter book title",
         },
@@ -72,22 +73,27 @@ const AddNewBook = () => {
       cancelButton: "Cancel",
     },
   ];
-  const handleOnChange = (e) => {
-    setAddBook({
-      ...addBook,
-      [e.target.name]: e.target.value,
-    });
-  };
+  // const handleOnChange = (e) => {
+  //   setForm({
+  //     ...form,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
 
+    let formData = new FormData();
+
+    // Object.keys(form).forEach((key) => {
+    //   formData.append(key, form[key]);
+    // });
+
     // dispatch add new book
-
-    dispatch(setBook(addBook));
-
-    // back to book list
-    navigate("/");
+    let data = await dispatch(createBookAction(form));
+    if (data.status == "success") {
+      navigate("/books");
+    }
   };
   const handleOnClick = () => {
     navigate("/books");
@@ -95,74 +101,52 @@ const AddNewBook = () => {
 
   return (
     <>
-      <Container>
-        <Row>
-          <Col>Add new books of your choice</Col>
+      <Container fluid className="py-4">
+        <Row className="align-items-center">
+          <Col xs={12} md={8}>
+            <h4>Add new books of your choice</h4>
+          </Col>
+          <Col xs={12} md={4} className="text-md-end text-center mt-3 mt-md-0">
+            <Button onClick={handleOnClick} variant="secondary">
+              Go Back
+            </Button>
+          </Col>
         </Row>
-        <Button onClick={handleOnClick}>Go Back</Button>
-      </Container>
 
-      <Container className="pt-5">
-        <Form onSubmit={handleOnSubmit}>
-          <FormGroup>
-            <FloatingLabel
-              controlId="floatingInput"
-              label="Book Title"
-              className="mb-3"
-              onChange={handleOnChange}
-              value={addBook.bookTitle}
-            >
-              <Form.Control type="text" placeholder="Book Title" required />
-            </FloatingLabel>
-            <FloatingLabel
-              controlId="floatingInput"
-              label="Author"
-              className="mb-3"
-              onChange={handleOnChange}
-              value={addBook.author}
-            >
-              <Form.Control type="text" placeholder="Author" required />
-            </FloatingLabel>
-            <FloatingLabel
-              controlId="floatingInput"
-              label="Year"
-              className="mb-3"
-              onChange={handleOnChange}
-              value={addBook.date}
-            >
-              <Form.Control type="number" placeholder="1990" required />
-            </FloatingLabel>
+        <Row className="pt-4">
+          <Col xs={12} md={8} lg={6}>
+            <Form onSubmit={handleOnSubmit}>
+              {bookObject[0].fields.map((field, index) => (
+                <FormGroup key={index} className="mb-3">
+                  <FloatingLabel
+                    controlId={`floatingInput-${index}`}
+                    label={field.label || "Book Title"}
+                  >
+                    <Form.Control
+                      name={field.name}
+                      type="text"
+                      placeholder={field.label || "Book Title"}
+                      required
+                      value={form[field.name] || ""}
+                      onChange={(e) => {
+                        setForm({
+                          ...form,
+                          [e.target.name]: e.target.value,
+                        });
+                      }}
+                    />
+                  </FloatingLabel>
+                </FormGroup>
+              ))}
 
-            <FloatingLabel
-              controlId="floatingInput"
-              label="ISBN"
-              className="mb-3"
-              onChange={handleOnChange}
-              value={addBook.isbn}
-            >
-              <Form.Control type="number" placeholder="Author" required />
-            </FloatingLabel>
-            <FloatingLabel
-              controlId="floatingInput"
-              label="Description"
-              className="mb-3"
-              onChange={handleOnChange}
-              value={addBook.description}
-            >
-              <Form.Control type="text" placeholder="Description" required />
-            </FloatingLabel>
-            <FloatingLabel
-              controlId="floatingInput"
-              label="Genre"
-              className="mb-3"
-              onChange={handleOnChange}
-              value={addBook.genre}
-            >
-              <Form.Control type="text" placeholder="Genre" required />
-            </FloatingLabel>
-          </FormGroup>
-        </Form>
-        <Button type="submit">Submit</Button>
+              <div className="d-grid">
+                <Button type="submit" variant="primary">
+                  Submit
+                </Button>
+              </div>
+            </Form>
+          </Col>
+        </Row>
       </Container>
     </>
   );

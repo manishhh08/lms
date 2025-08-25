@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Button,
   ButtonGroup,
@@ -7,11 +7,12 @@ import {
   Row,
   Table,
 } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const Book = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleOnClick = () => {
     navigate("/add-book");
@@ -19,6 +20,14 @@ const Book = () => {
 
   const { book } = useSelector((store) => store.bookStore);
 
+  // const [bookList, setBookList] = useState([]);
+
+  // useEffect(() => {
+  //   dispatch(fetchAllBooksActions);
+  // }, []);
+  // useEffect(() => {
+  //   setBookList(book);
+  // }, []);
   return (
     <Container>
       <Row className="mt-3">

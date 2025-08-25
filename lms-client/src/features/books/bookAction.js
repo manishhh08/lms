@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import { addNewBook, updateBookApi } from "./bookAPI";
 
 //get available books
 export const fetchAllBooksAction = () => async (dispatch) => {
@@ -8,7 +9,7 @@ export const fetchAllBooksAction = () => async (dispatch) => {
 
 export const createBookAction = (formData) => async (dispatch) => {
   // call api create book
-  let data = await createBookApi(formData);
+  let data = await addNewBook(formData);
   toast[data.status](data.message);
   if (data.status == "success") {
     // update bookstore

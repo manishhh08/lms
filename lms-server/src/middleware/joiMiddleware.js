@@ -40,7 +40,7 @@ export const createBookValidation = (req, res, next) => {
   let createBookSchema = Joi.object({
     bookTitle: Joi.string().required(),
     author: Joi.string().required(),
-    thumbnail: Joi.string().required(),
+    thumbnail: Joi.string(),
     isbn: Joi.string().required(),
     genre: Joi.string().required(),
     publishedYear: Joi.number().required(),

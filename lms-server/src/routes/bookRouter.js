@@ -16,7 +16,7 @@ router.get("/:id", fetchBooks);
 
 router.get("/", authMiddleware, isAdmin, fetchAllBooks);
 
-// router.post("/", createBookValidation, authMiddleware, isAdmin, createBook);
+router.post("/", createBookValidation, authMiddleware, isAdmin, createBook);
 
 router.put("/:id", authMiddleware, isAdmin, updateBookById);
 export default router;

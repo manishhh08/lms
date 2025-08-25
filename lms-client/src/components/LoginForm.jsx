@@ -49,10 +49,10 @@ const LoginForm = () => {
     console.log("response:", data);
     toast[data.status](data.message);
 
-    if (data.status === "success") {
-      // redirect to dashboard
-      navigate("/dashboard");
-    }
+    // if (data.status === "success") {
+    //   // redirect to dashboard
+    //   navigate("/dashboard");
+    // }
   };
 
   const handleOnChange = (e) => {

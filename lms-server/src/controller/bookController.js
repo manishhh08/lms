@@ -38,7 +38,10 @@ export const fetchAllBooks = async (req, res, next) => {
 export const createBook = async (req, res, next) => {
   try {
     // add book
+
+    console.log(req.body);
     let book = await insertBook(req.body);
+
     return res.json({
       status: "success",
       message: "Book created",

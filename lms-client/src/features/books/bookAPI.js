@@ -12,11 +12,11 @@ export const getBook = async () => {
   });
 };
 
-export const addNewBook = async (obj) => {
+export const addNewBook = async (bookObj) => {
   return apiProcessor({
     method: "post",
-    url: `${apiUrl}/book/add-book`,
-    data: obj,
+    url: `${apiUrl}/books`,
+    data: bookObj,
     isPrivate: true,
   });
 };
@@ -29,5 +29,3 @@ export const updateBookApi = async ({ _id, ...bookObj }) => {
     data: bookObj,
   });
 };
-
-export const          
