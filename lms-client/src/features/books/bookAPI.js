@@ -7,7 +7,7 @@ const apiUrl = import.meta.env.VITE_APP_API_URL + "/api/v1";
 export const getBook = async () => {
   return apiProcessor({
     method: "get",
-    url: `${apiUrl}/book`,
+    url: `${apiUrl}/books`,
     isPrivate: true,
   });
 };

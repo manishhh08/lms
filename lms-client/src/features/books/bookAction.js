@@ -1,10 +1,11 @@
 import { toast } from "react-toastify";
-import { addNewBook, updateBookApi } from "./bookAPI";
+import { addNewBook, getBook, updateBookApi } from "./bookAPI";
+import { setBook } from "./bookSlice";
 
 //get available books
 export const fetchAllBooksAction = () => async (dispatch) => {
-  let data = await getAllBooksApi();
-  dispatch(setBooks(data?.books || []));
+  let data = await getBook();
+  dispatch(setBook(data?.books || []));
 };
 
 export const createBookAction = (formData) => async (dispatch) => {

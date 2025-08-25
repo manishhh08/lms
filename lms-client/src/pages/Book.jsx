@@ -1,33 +1,40 @@
 import React, { useEffect } from "react";
+import { useState } from "react";
 import {
   Button,
   ButtonGroup,
   Col,
   Container,
+  Form,
   Row,
   Table,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import {
+  fetchAllBooksAction,
+  updateBookAction,
+} from "../features/books/bookAction";
 
 const Book = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleOnClick = () => {
+    // navigate("/books/add-book");
     navigate("/add-book");
   };
 
   const { book } = useSelector((store) => store.bookStore);
 
-  // const [bookList, setBookList] = useState([]);
+  const [bookList, setBookList] = useState([]);
 
-  // useEffect(() => {
-  //   dispatch(fetchAllBooksActions);
-  // }, []);
-  // useEffect(() => {
-  //   setBookList(book);
-  // }, []);
+  useEffect(() => {
+    dispatch(fetchAllBooksAction());
+  }, []);
+  useEffect(() => {
+    setBookList(book);
+  }, [book]);
   return (
     <Container>
       <Row className="mt-3">
@@ -43,55 +50,88 @@ const Book = () => {
             <thead>
               <tr>
                 <th>#</th>
-                <th>Year</th>
                 <th>Book Title</th>
                 <th>Author</th>
-                <th>Genre</th>
+                <th>IsAvailable</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
 
             <tbody>
-              {book.length === 0 ? (
-                <tr>
-                  <td colSpan={7} className="text-center">
-                    No Books Added
-                  </td>
-                </tr>
-              ) : (
-                book.map((b, index) => {
-                  <tr key={index}>
+              {bookList.map((book, index) => {
+                return (
+                  <tr key={book._id}>
+                    {/* <td>
+                  <Form.Check type="checkbox" value={book.id} />
+                </td> */}
                     <td>{index + 1}</td>
-                    <td>{b.year}</td>
-                    <td>{b.bookTitle}</td>
-                    <td>{b.author}</td>
-                    <td>{b.genre}</td>
-                    {/* <td>{b.imdb}</td>
-                    <td>{b.description}</td> */}
+                    {/* <td>
+                      <img
+                        src={
+                          book.thumbnail.includes("http")
+                            ? book.thumbnail
+                            : import.meta.env.VITE_APP_API_URL +
+                              "/" +
+                              book.thumbnail
+                        }
+                        width="80px"
+                      />{" "}
+                      {book.title}
+                    </td> */}
                     <td>
-                      <ButtonGroup className="gap-2">
-                        <Button
-                          className="btn btn-danger"
-                          onClick={() => {
-                            alert("Delete");
-                          }}
-                        >
-                          Delete
-                        </Button>
-                        <Button
-                          className="btn btn-warning"
-                          onClick={() => {
-                            alert("Update");
-                          }}
-                        >
-                          Update
-                        </Button>
-                      </ButtonGroup>
+                      {/* <input
+                    type="checkbox"
+                    name="status"
+                    id="status"
+                    checked={book.status === "active" ? true : false}
+                    onChange={(e) => {
+                      dispatch(
+                        updateBookAction({
+                          _id: book._id,
+                          status: e.target.checked ? "active" : "inactive",
+                        })
+                      );
+                    }}
+                  />{" "} */}
+                      <Form.Check
+                        type="switch"
+                        id="custom-switch"
+                        checked={book.status === "active" ? true : false}
+                        onChange={(e) => {
+                          dispatch(
+                            updateBookAction({
+                              _id: book._id,
+                              status: e.target.checked ? "active" : "inactive",
+                            })
+                          );
+                        }}
+                      />
                     </td>
-                  </tr>;
-                })
-              )}
+                    <td>{book.isAvailable ? "Available" : "Not Available"}</td>
+                    <td>{book.expectedAvailable?.split("T")[0]}</td>
+                    <td>
+                      <Button
+                        variant="danger"
+                        className="d-inline-flex justify-content-center me-2"
+                      ></Button>
+                      <Button
+                        variant="warning"
+                        className="d-inline-flex justify-content-center"
+                        onClick={() => {
+                          let selectedBook = books.find(
+                            (b) => b._id == book._id
+                          );
+                          console.log(selectedBook);
+                          // update the selected book
+                          dispatch(setSelectedBooks(selectedBook));
+                          navigate("/books/edit-books");
+                        }}
+                      ></Button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </>
         </Table>
