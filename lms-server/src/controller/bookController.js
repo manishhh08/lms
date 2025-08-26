@@ -1,4 +1,8 @@
-import { getAllBooks, insertBook } from "../models/books/BookModel.js";
+import {
+  getAllBooks,
+  insertBook,
+  updateBookById,
+} from "../models/books/BookModel.js";
 
 export const fetchBooks = async (req, res, next) => {
   try {
@@ -77,7 +81,7 @@ export const updateBook = async (req, res, next) => {
     });
   } catch (err) {
     console.log(err);
-    let message = "Book creation Failed!";
+    let message = "Book Update Failed!";
     let statusCode = 500;
     if (err.message.includes("E11000")) {
       message = message + err.message;

@@ -11,8 +11,6 @@ const PublicLayout = () => {
         {/* Content goes here */}
         <Outlet />
       </main>
-      {/* Footer can be added here if needed */}
-      <Footer />
     </>
   );
 };

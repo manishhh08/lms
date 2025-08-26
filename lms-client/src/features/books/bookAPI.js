@@ -12,6 +12,14 @@ export const getBook = async () => {
   });
 };
 
+export const getAllBooksApi = async (pubBook = false) => {
+  return apiProcessor({
+    method: "GET",
+    url: pubBook ? `${apiUrl}/books/pub-books` : `${apiUrl}/books`,
+    isPrivate: !pubBook,
+  });
+};
+
 export const addNewBook = async (bookObj) => {
   return apiProcessor({
     method: "post",

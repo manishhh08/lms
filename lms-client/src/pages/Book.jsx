@@ -23,7 +23,7 @@ const Book = () => {
 
   const handleOnClick = () => {
     // navigate("/books/add-book");
-    navigate("/add-book");
+    navigate("/books/add-book");
   };
 
   const { book } = useSelector((store) => store.bookStore);

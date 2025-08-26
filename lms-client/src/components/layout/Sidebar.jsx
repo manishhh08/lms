@@ -1,7 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
+  const { user } = useSelector((store) => store.userStore);
   return (
     <div className="bg-dark min-vh-100">
       <div className="side-top h-25 d-flex flex-column align-items-center justify-content-center p-3">
@@ -14,7 +16,9 @@ const Sidebar = () => {
             height="80"
           />
         </div>
-        <div className="top-user text-white fw-bold">Welcome User</div>
+        <div className="top-user text-white fw-bold">
+          Welcome {user?.fullName}
+        </div>
       </div>
 
       <div className="side-bottom  h-75 d-flex flex-column align-items-start justify-content-start p-3 text-white">

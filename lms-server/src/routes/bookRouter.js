@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.get("/pub-books", fetchBooks);
 
-router.get("/:id", fetchBooks);
+// router.get("/:id", fetchBooks);
 
 router.get("/", authMiddleware, isAdmin, fetchAllBooks);
 

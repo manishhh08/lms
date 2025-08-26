@@ -18,8 +18,11 @@ import Book from "./pages/Book";
 import Borrow from "./pages/Borrow";
 import User from "./pages/User";
 import Review from "./pages/Review";
-import AddNewBook from "./components/AddNewBook";
+import AddNewBook from "./pages/AddNewBook";
 import EditBook from "./pages/EditBook";
+import HomePage from "./pages/HomePage";
+import BookDetail from "./pages/BookDetail";
+import { fetchAllPublicBooksAction } from "./features/books/bookAction";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,7 +32,10 @@ function App() {
 
   useEffect(() => {
     autoLogIn();
+
+    dispatch(fetchAllPublicBooksAction());
   }, []);
+
   return (
     <>
       <div className="wrapper">
@@ -37,77 +43,22 @@ function App() {
           {/* Define your routes here */}
 
           <Route path="/" element={<PublicLayout />}>
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
-            {/* dashboard route */}
+            <Route index element={<HomePage />} />
+            <Route path="signup" element={<Signup />} />
+            <Route path="login" element={<Login />} />
+            <Route path="book-detail/:bookid" element={<BookDetail />} />
           </Route>
-
           <Route path="/" element={<PrivateLayout />}>
             <>
-              <Route
-                path="/dashboard"
-                element={
-                  <Auth>
-                    <Dashboard />
-                  </Auth>
-                }
-              />
-              <Route
-                path="/admin"
-                element={
-                  <Auth>
-                    <Admin />
-                  </Auth>
-                }
-              />
-              <Route
-                path="/books"
-                element={
-                  <Auth>
-                    <Book />
-                  </Auth>
-                }
-              />
-              <Route
-                path="/borrow"
-                element={
-                  <Auth>
-                    <Borrow />
-                  </Auth>
-                }
-              />
-              <Route
-                path="/review"
-                element={
-                  <Auth>
-                    <Review />
-                  </Auth>
-                }
-              />
-              <Route
-                path="/users"
-                element={
-                  <Auth>
-                    <User />
-                  </Auth>
-                }
-              />
-              <Route
-                path="/books/add-book"
-                element={
-                  <Auth>
-                    <AddNewBook />
-                  </Auth>
-                }
-              />
-              <Route
-                path="/books/edit-book"
-                element={
-                  <Auth>
-                    <EditBook />
-                  </Auth>
-                }
-              />
+              {/* dashboard route */}
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="admin" element={<Admin />} />
+              <Route path="books" element={<Book />} />
+              <Route path="borrow" element={<Borrow />} />
+              <Route path="review" element={<Review />} />
+              <Route path="users" element={<User />} />
+              <Route path="books/add-book" element={<AddNewBook />} />
+              <Route path="books/edit-books" element={<EditBook />} />
             </>
           </Route>
 
