@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   book: [],
   SelectedBook: [],
-  pubBook: {},
+  pubBook: [],
 };
 
 const bookSlice = createSlice({

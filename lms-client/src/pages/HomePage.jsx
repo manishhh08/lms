@@ -11,7 +11,7 @@ const HomePage = () => {
       {pubBook.map((book) => {
         return (
           <div>
-            <Link to={"book-detail" + book._id}>{book.title}</Link>
+            <Link to={"/book-detail/" + book._id}>{book.title}</Link>
           </div>
         );
       })}

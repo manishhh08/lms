@@ -50,7 +50,6 @@ function App() {
           </Route>
           <Route path="/" element={<PrivateLayout />}>
             <>
-              {/* dashboard route */}
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="admin" element={<Admin />} />
               <Route path="books" element={<Book />} />
