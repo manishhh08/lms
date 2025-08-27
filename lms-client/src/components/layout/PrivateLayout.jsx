@@ -20,7 +20,7 @@ const PrivateLayout = () => {
             <Header />
             <main
               className="flex-grow-1 overflow-y-scroll "
-              style={{ maxHeight: "480px" }}
+              style={{ maxHeight: "480px || 50vh" }}
             >
               <Outlet />
             </main>
