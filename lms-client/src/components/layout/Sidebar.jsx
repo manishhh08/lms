@@ -1,9 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const { user } = useSelector((store) => store.userStore);
+
+  const [filteredMenuList, setFileteredMenuList] = useState([]);
+
+  const menuList = [
+    {
+      link: "/dashboard",
+
+      label: "Dashboard",
+      isAdminOnly: false,
+    },
+    {
+      link: "/books",
+
+      label: "Books",
+      isAdminOnly: true,
+    },
+    {
+      link: "/admins",
+
+      label: "Admin",
+      isAdminOnly: true,
+    },
+    {
+      link: "/borrows",
+
+      label: "Borrows",
+      isAdminOnly: false,
+    },
+    {
+      link: "/reviews",
+
+      label: "Reviews",
+      isAdminOnly: true,
+    },
+    {
+      link: "/profile",
+
+      label: "Profile",
+      isAdminOnly: false,
+    },
+  ];
+
+  useEffect(() => {
+    setFileteredMenuList(
+      menuList.filter((m) => {
+        return user.role == "admin" || !m.isAdminOnly;
+      })
+    );
+  }, []);
   return (
     <div className="bg-dark min-vh-100">
       <div className="side-top h-25 d-flex flex-column align-items-center justify-content-center p-3">
@@ -21,26 +70,20 @@ const Sidebar = () => {
         </div>
       </div>
 
-      <div className="side-bottom  h-75 d-flex flex-column align-items-start justify-content-start p-3 text-white">
-        <nav className="nav flex-column w-100">
-          <Link className="nav-link  fw-semibold" to="/dashboard">
-            Dashboard
-          </Link>
-          <Link className="nav-link fw-semibold" to="/books">
-            Books
-          </Link>
-          <Link className="nav-link  fw-semibold" to="/users">
-            Users
-          </Link>
-
-          <Link className="nav-link fw-semibold" to="/admin">
-            Admin
-          </Link>
-          <Link className="nav-link  fw-semibold" to="/borrow">
-            Borrow
-          </Link>
-        </nav>
-      </div>
+      <ul className="list-unstyled">
+        {filteredMenuList.map((menu) => {
+          return (
+            <li>
+              <Link
+                className="nav flex-column w-100 nav-link  fw-semibold h-75 d-flex flex-column align-items-start justify-content-center ps-5"
+                to={menu.link}
+              >
+                {menu.label}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 };
