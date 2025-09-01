@@ -19,12 +19,13 @@ const AddNewBook = () => {
   const dispatch = useDispatch();
 
   const [form, setForm] = useState({
-    publishedYear: 0,
+    publishedYear: "",
     bookTitle: "",
     author: "",
     genre: "",
     isbn: "",
     description: "",
+    // thumbnail: "",
   });
 
   const bookObject = [
@@ -73,24 +74,18 @@ const AddNewBook = () => {
       cancelButton: "Cancel",
     },
   ];
-  // const handleOnChange = (e) => {
-  //   setForm({
-  //     ...form,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
 
     let formData = new FormData();
 
-    // Object.keys(form).forEach((key) => {
-    //   formData.append(key, form[key]);
-    // });
+    Object.keys(form).forEach((key) => {
+      formData.append(key, form[key]);
+    });
 
     // dispatch add new book
-    let data = await dispatch(createBookAction(form));
+    let data = await dispatch(createBookAction(formData));
     if (data.status == "success") {
       navigate("/books");
     }
@@ -113,7 +108,7 @@ const AddNewBook = () => {
           </Col>
         </Row>
 
-        <Row className="pt-4">
+        <Row className="pt-4 d-flex justify-content-center align-items-center">
           <Col xs={12} md={8} lg={6}>
             <Form onSubmit={handleOnSubmit}>
               {bookObject[0].fields.map((field, index) => (
@@ -124,24 +119,49 @@ const AddNewBook = () => {
                   >
                     <Form.Control
                       name={field.name}
-                      type="text"
-                      placeholder={field.label || "Book Title"}
-                      required
-                      value={form[field.name] || ""}
+                      type={field.type}
+                      placeholder={field.placeholder}
                       onChange={(e) => {
-                        setForm({
+                        let updatedForm = {
                           ...form,
                           [e.target.name]: e.target.value,
-                        });
+                        };
+                        setForm(updatedForm);
                       }}
                     />
                   </FloatingLabel>
                 </FormGroup>
               ))}
 
-              <div className="d-grid">
+              <FormGroup className="mb-3">
+                <FloatingLabel
+                  controlId={`floatingInput-file`}
+                  label="Upload Book Image"
+                >
+                  <Form.Control
+                    name="image"
+                    type="file"
+                    placeholder="Upload book image"
+                    accept="image/*"
+                    onChange={(e) => {
+                      console.log("changed");
+                      let updatedForm = {
+                        ...form,
+                        [e.target.name]: e.target.files[0],
+                      };
+                      setForm(updatedForm);
+                    }}
+                  />
+                </FloatingLabel>
+              </FormGroup>
+
+              <div className="d-flex flex-direction-column gap-2 align-items-center justify-content-center mt-5">
                 <Button type="submit" variant="primary">
                   Submit
+                </Button>
+
+                <Button type="cancel" variant="danger">
+                  Cancel
                 </Button>
               </div>
             </Form>

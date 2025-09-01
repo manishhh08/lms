@@ -26,6 +26,8 @@ export const addNewBook = async (bookObj) => {
     url: `${apiUrl}/books`,
     data: bookObj,
     isPrivate: true,
+
+    contentType: "multipart/form-data",
   });
 };
 

@@ -23,6 +23,7 @@ import EditBook from "./pages/EditBook";
 import HomePage from "./pages/HomePage";
 import BookDetail from "./pages/BookDetail";
 import { fetchAllPublicBooksAction } from "./features/books/bookAction";
+import PubBooks from "./pages/PubBooks";
 
 function App() {
   const dispatch = useDispatch();
@@ -46,6 +47,8 @@ function App() {
             <Route index element={<HomePage />} />
             <Route path="signup" element={<Signup />} />
             <Route path="login" element={<Login />} />
+            <Route path="books" element={<Book />} />
+            <Route path="books/pub-books" element={<PubBooks />} />
             <Route path="book-detail/:bookid" element={<BookDetail />} />
           </Route>
           <Route path="/" element={<PrivateLayout />}>

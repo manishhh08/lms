@@ -3,6 +3,7 @@ import {
   insertBook,
   updateBookById,
 } from "../models/books/BookModel.js";
+import cloudinary from "cloudinary";
 
 export const fetchBooks = async (req, res, next) => {
   try {
@@ -41,9 +42,29 @@ export const fetchAllBooks = async (req, res, next) => {
 // create book
 export const createBook = async (req, res, next) => {
   try {
-    // add book
+    //cloudinary image upload
+    cloudinary.config({
+      cloud_name: process.env.CLOUDINARY_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET,
+    });
 
-    console.log(req.body);
+    const options = {
+      use_filename: true,
+      unique_filename: false,
+      overwrite: true,
+    };
+
+    const result = await cloudinary.uploader.upload(
+      "assets/" + req.file.filename,
+      options
+    );
+
+    console.log(111, result);
+
+    req.body.thumbnail = result?.secure_url;
+    // add book
+    // console.log(req.body);
     let book = await insertBook(req.body);
 
     return res.json({

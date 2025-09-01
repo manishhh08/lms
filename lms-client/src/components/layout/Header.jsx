@@ -29,7 +29,7 @@ const Header = () => {
                   Dashboard
                 </Nav.Link>
 
-                <Nav.Link as={Link} to="/books">
+                <Nav.Link as={Link} to="/books/pub-books">
                   Books
                 </Nav.Link>
                 <Button
@@ -43,6 +43,9 @@ const Header = () => {
               </>
             ) : (
               <>
+                <Nav.Link as={Link} to="/books/pub-books">
+                  Books
+                </Nav.Link>
                 <Nav.Link as={Link} to="/signup">
                   Signup
                 </Nav.Link>
