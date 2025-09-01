@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 
@@ -20,11 +21,20 @@ const BookDetail = () => {
   }, [pubBook]);
 
   return (
-    <div>
-      BookDetail
-      <h2>{book?.title}</h2>
-      <div>{book?.author}</div>
-    </div>
+    <Container>
+      <h3>Here are the details on the book that you selected</h3>
+      <Row>
+        <Col>Image will be used here</Col>
+        <Col>
+          Book details will be here
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

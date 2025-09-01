@@ -29,6 +29,9 @@ app.use("/api/v1/user", userRouter);
 
 //book routes
 app.use("/api/v1/books", bookRouter);
+
+//borrow routes
+app.use("/api/v1/borrows", bookRouter);
 // Start the server
 mongodbConnection()
   .then(() => {

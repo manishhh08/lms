@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
 import { Button, Table } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchBorrowAction,
-  returnBookAction,
-} from "../features/borrows/borrowActions";
+// import { useDispatch, useSelector } from "react-redux";
+// import {
+//   fetchBorrowAction,
+//   returnBookAction,
+// } from "../features/borrows/borrowActions";
 
 const Borrow = () => {
-  const { borrows } = useSelector((store) => store.borrowStore);
-  const dispatch = useDispatch();
+  // const { borrows } = useSelector((store) => store.borrowStore);
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchBorrowAction());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchBorrowAction());
+  // }, []);
 
   return (
     <div className="p-5">
@@ -29,7 +29,7 @@ const Borrow = () => {
             <th>#</th>
             <th>Book Title</th>
             <th>Expected Date</th>
-            <th>status</th>
+            <th>Status</th>
             <th>Returned Date</th>
             <th>Action</th>
           </tr>
@@ -63,9 +63,9 @@ const Borrow = () => {
                     <Button
                       variant="danger"
                       className="d-inline-flex justify-content-center me-2"
-                      onClick={() => {
-                        dispatch(returnBookAction(borrow._id));
-                      }}
+                      // onClick={() => {
+                      //   dispatch(returnBookAction(borrow._id));
+                      // }}
                     >
                       Return
                     </Button>

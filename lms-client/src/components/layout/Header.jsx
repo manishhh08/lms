@@ -19,16 +19,19 @@ const Header = () => {
       bg="dark"
     >
       <Container>
-        <Navbar.Brand href="/dashboard">LMS</Navbar.Brand>
+        <Navbar.Brand href="/">LMS</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
+          <Nav className="ms-auto gap-4">
             {user && user._id ? (
               <>
                 <Nav.Link as={Link} to="/dashboard">
                   Dashboard
                 </Nav.Link>
 
+                <Nav.Link as={Link} to="/books">
+                  Books
+                </Nav.Link>
                 <Button
                   onClick={() => {
                     // remove user data onclick
