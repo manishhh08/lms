@@ -45,8 +45,8 @@ const Book = () => {
       </Row>
       <Button onClick={handleOnClick}>Add New Books</Button>
 
-      <Row className="pt-5">
-        <Table variant="dark">
+      <Row className="m-2 ">
+        <Table variant="dark" className="text-center mt-3">
           <>
             <thead>
               <tr>
@@ -85,21 +85,6 @@ const Book = () => {
                     <td>{book.isAvailable ? "Available" : "Not Available"}</td>
                     {/* <td>{book.expectedAvailable?.split("T")[0]}</td> */}
                     <td>
-                      {/* <input
-                    type="checkbox"
-                    name="status"
-                    id="status"
-                    checked={book.status === "active" ? true : false}
-                    onChange={(e) => {
-                      dispatch(
-                        updateBookAction({
-                          _id: book._id,
-                          status: e.target.checked ? "active" : "inactive",
-                        })
-                      );
-                    }}
-                  />{" "} */}
-
                       <Form.Check
                         type="switch"
                         id="custom-switch"

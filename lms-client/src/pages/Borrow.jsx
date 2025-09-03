@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
 import { Button, Table } from "react-bootstrap";
-// import { useDispatch, useSelector } from "react-redux";
-// import {
-//   fetchBorrowAction,
-//   returnBookAction,
-// } from "../features/borrows/borrowActions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchBorrowAction,
+  returnBookAction,
+} from "../features/borrows/borrowActions";
 
 const Borrow = () => {
-  // const { borrows } = useSelector((store) => store.borrowStore);
-  // const dispatch = useDispatch();
+  const { borrows } = useSelector((store) => store.borrowStore);
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(fetchBorrowAction());
-  // }, []);
+  useEffect(() => {
+    dispatch(fetchBorrowAction());
+  }, []);
 
   return (
     <div className="p-5">
@@ -20,7 +20,7 @@ const Borrow = () => {
       <p>Manage your borrows, add new ones, or update existing entries.</p>
       <hr />
 
-      <Table hover variant="light" className="text-center mt-3">
+      <Table hover variant="dark" className="text-center mt-3">
         <thead>
           <tr>
             {/* <th>

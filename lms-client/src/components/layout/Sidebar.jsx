@@ -17,7 +17,7 @@ const Sidebar = () => {
     {
       link: "/books",
 
-      label: "Books",
+      label: "Book Management ",
       isAdminOnly: true,
     },
     {
@@ -71,9 +71,9 @@ const Sidebar = () => {
       </div>
 
       <ul className="list-unstyled">
-        {filteredMenuList.map((menu) => {
+        {filteredMenuList.map((menu, index) => {
           return (
-            <li>
+            <li key={index}>
               <Link
                 className="nav flex-column w-100 nav-link  fw-semibold h-75 d-flex flex-column align-items-start justify-content-center ps-5"
                 to={menu.link}

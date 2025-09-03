@@ -47,7 +47,7 @@ function App() {
             <Route index element={<HomePage />} />
             <Route path="signup" element={<Signup />} />
             <Route path="login" element={<Login />} />
-            <Route path="books" element={<Book />} />
+            {/* <Route path="books" element={<Book />} /> */}
             <Route path="books/pub-books" element={<PubBooks />} />
             <Route path="book-detail/:bookid" element={<BookDetail />} />
           </Route>
@@ -56,7 +56,7 @@ function App() {
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="admin" element={<Admin />} />
               <Route path="books" element={<Book />} />
-              <Route path="borrow" element={<Borrow />} />
+              <Route path="borrows" element={<Borrow />} />
               <Route path="review" element={<Review />} />
               <Route path="users" element={<User />} />
               <Route path="books/add-book" element={<AddNewBook />} />

@@ -6,6 +6,7 @@ import { registerUser, verifyEmail } from "./src/controller/authController.js";
 import authRouter from "./src/routes/authRouter.js";
 import userRouter from "./src/routes/userRouter.js";
 import bookRouter from "./src/routes/bookRouter.js";
+import borrowRouter from "./src/routes/borrowRouter.js";
 // Connect to MongoDB
 
 const PORT = config.port;
@@ -31,7 +32,7 @@ app.use("/api/v1/user", userRouter);
 app.use("/api/v1/books", bookRouter);
 
 //borrow routes
-app.use("/api/v1/borrows", bookRouter);
+app.use("/api/v1/borrows", borrowRouter);
 // Start the server
 mongodbConnection()
   .then(() => {
