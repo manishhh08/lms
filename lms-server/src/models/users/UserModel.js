@@ -24,3 +24,19 @@ export const createUser = (userObj) => {
 export const updateUserById = (id, userObj) => {
   return User.findByIdAndUpdate(id, userObj);
 };
+
+//keep only 5 latest access token
+export const pushAccessToken = (id, accessToken) => {
+  return User.findByIdAndUpdate(
+    id,
+    {
+      $push: {
+        accessToken: {
+          $each: [accessToken],
+          $slice: -5, // keep only last 5 tokens
+        },
+      },
+    },
+    { new: true }
+  );
+};

@@ -1,6 +1,7 @@
 import {
   createUser,
   getUser,
+  pushAccessToken,
   updateUserById,
 } from "../models/users/UserModel.js";
 import { sendEmailVerification } from "../utils/emailProcessor.js";
@@ -86,10 +87,17 @@ export const loginUser = async (req, res) => {
 
         let refreshToken = createRefreshToken(payload);
 
+        // await updateUserById(user._id, {
+        //   refreshToken,
+        //   accessToken: [...user.accessToken, accessToken],
+        // });
         await updateUserById(user._id, {
           refreshToken,
-          accessToken: [...user.accessToken, accessToken],
         });
+
+        //keep only last 5 accesss token
+        await pushAccessToken(user._id, accessToken);
+
         return res.status(200).json({
           status: "success",
           message: "Login Successful",
