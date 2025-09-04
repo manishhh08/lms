@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { setBook } from "../features/books/bookSlice";
 import { createBookAction } from "../features/books/bookAction";
-import slugify from "slugify";
+// import slugify from "slugify";
 
 const AddNewBook = () => {
   const navigate = useNavigate();
