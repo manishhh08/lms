@@ -45,6 +45,10 @@ const Book = () => {
       </Row>
       <Button onClick={handleOnClick}>Add New Books</Button>
 
+      <Col className="d-flex justify-content-between size-5 ms-3 mt-3 fs-4">
+        {bookList.length} books found.
+      </Col>
+
       <Row className="m-2 ">
         <Table variant="dark" className="text-center mt-3">
           <>

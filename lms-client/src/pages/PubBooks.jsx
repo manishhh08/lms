@@ -17,11 +17,22 @@ const PubBooks = () => {
   return (
     <Container>
       <h2>Available Books</h2>
-      <Row className="d-flex gap-4 m-4 flex-wrap w-full">
+      <Row className="d-flex gap-4 m-4 flex-wrap w-full mb-0">
         {pubBook.map((book) => {
           return (
             <Card style={{ width: "18rem" }}>
               {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
+              <Card.Img
+                variant="top"
+                src={
+                  book.thumbnail
+                    ? book.thumbnail.includes("http")
+                      ? book.thumbnail
+                      : import.meta.env.VITE_APP_API_URL + "/" + book.thumbnail
+                    : "/assets/bookloader.gif"
+                }
+                style={{ objectFit: "cover", height: "250px" }}
+              />
               <Card.Body>
                 <Card.Title>{book?.bookTitle}</Card.Title>
                 <Card.Text>{book?.publishedYear}</Card.Text>

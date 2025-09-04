@@ -52,7 +52,20 @@ const HomePage = () => {
           {pubBook.map((book) => {
             return (
               <Card style={{ width: "18rem" }}>
-                {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
+                {/* <Card.Img variant="top" src="{thumbnail}" /> */}
+                <Card.Img
+                  variant="top"
+                  src={
+                    book.thumbnail
+                      ? book.thumbnail.includes("http")
+                        ? book.thumbnail
+                        : import.meta.env.VITE_APP_API_URL +
+                          "/" +
+                          book.thumbnail
+                      : "/fallback-image.png" // optional fallback
+                  }
+                  style={{ objectFit: "cover", height: "200px" }}
+                />
                 <Card.Body>
                   <Card.Title>{book?.bookTitle}</Card.Title>
                   <Card.Text>{book?.publishedYear}</Card.Text>
@@ -74,6 +87,19 @@ const HomePage = () => {
             return (
               <Card style={{ width: "18rem" }}>
                 {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
+                <Card.Img
+                  variant="top"
+                  src={
+                    book.thumbnail
+                      ? book.thumbnail.includes("http")
+                        ? book.thumbnail
+                        : import.meta.env.VITE_APP_API_URL +
+                          "/" +
+                          book.thumbnail
+                      : "/fallback-image.png"
+                  }
+                  style={{ objectFit: "cover", height: "200px" }}
+                />
                 <Card.Body>
                   <Card.Title>{book?.bookTitle}</Card.Title>
                   <Card.Text>{book?.publishedYear}</Card.Text>
