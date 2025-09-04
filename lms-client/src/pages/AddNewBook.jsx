@@ -144,7 +144,6 @@ const AddNewBook = () => {
                     placeholder="Upload book image"
                     accept="image/*"
                     onChange={(e) => {
-                      console.log("changed");
                       let updatedForm = {
                         ...form,
                         [e.target.name]: e.target.files[0],

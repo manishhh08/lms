@@ -51,6 +51,7 @@ const Book = () => {
             <thead>
               <tr>
                 <th>#</th>
+                <th>Thumbnail</th>
                 <th>Book Title</th>
                 <th>Author</th>
                 <th>IsAvailable</th>
@@ -58,19 +59,16 @@ const Book = () => {
                 <th>Action</th>
               </tr>
             </thead>
-
+            {/* 
             <tbody>
               {bookList.map((book, index) => {
                 return (
                   <tr key={book._id}>
-                    {/* <td>
-                  <Form.Check type="checkbox" value={book.id} />
-                </td> */}
                     <td>{index + 1}</td>
-                    {/* <td>
+                    <td>
                       <img
                         src={
-                          book.thumbnail.includes("http")
+                          book?.thumbnail.includes("http")
                             ? book.thumbnail
                             : import.meta.env.VITE_APP_API_URL +
                               "/" +
@@ -78,12 +76,13 @@ const Book = () => {
                         }
                         width="80px"
                       />{" "}
-                      {book.title}
-                    </td> */}
+                      {book.bookTitle}
+                    </td>
+                    <td>ss</td>
                     <td>{book.bookTitle}</td>
                     <td>{book.author}</td>
                     <td>{book.isAvailable ? "Available" : "Not Available"}</td>
-                    {/* <td>{book.expectedAvailable?.split("T")[0]}</td> */}
+
                     <td>
                       <Form.Check
                         type="switch"
@@ -125,6 +124,83 @@ const Book = () => {
                   </tr>
                 );
               })}
+            </tbody> */}
+            <tbody>
+              {bookList.map((book, index) => (
+                <tr key={book._id || index}>
+                  <td>{index + 1}</td>
+
+                  {/* Thumbnail + Book Title */}
+                  <td>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "10px",
+                      }}
+                    >
+                      <img
+                        src={
+                          book.thumbnail
+                            ? book.thumbnail.includes("http")
+                              ? book.thumbnail
+                              : import.meta.env.VITE_APP_API_URL +
+                                "/" +
+                                book.thumbnail
+                            : "/fallback-image.png" // fallback if no thumbnail
+                        }
+                        // alt={book.bookTitle || "Book Thumbnail"}
+                        width="50"
+                        height="50"
+                        style={{ objectFit: "cover", borderRadius: "4px" }}
+                      />
+                      {/* <span>{book.bookTitle}</span> */}
+                    </div>
+                  </td>
+
+                  <td>{book.bookTitle || "Untitled"}</td>
+                  <td>{book.author || "Unknown Author"}</td>
+                  <td>{book.isAvailable ? "Available" : "Not Available"}</td>
+
+                  {/* Status Switch */}
+                  <td>
+                    <Form.Check
+                      type="switch"
+                      id={`status-switch-${book._id}`}
+                      checked={book.status === "active"}
+                      onChange={(e) => {
+                        dispatch(
+                          updateBookAction({
+                            _id: book._id,
+                            status: e.target.checked ? "active" : "inactive",
+                          })
+                        );
+                      }}
+                    />
+                  </td>
+
+                  {/* Action Buttons */}
+                  <td>
+                    <Button
+                      variant="danger"
+                      className="d-inline-flex justify-content-center me-2"
+                    >
+                      Delete
+                    </Button>
+                    <Button
+                      variant="warning"
+                      className="d-inline-flex justify-content-center"
+                      onClick={() => {
+                        dispatch(setSelectedBook(book));
+                        navigate("/books/edit-books");
+                      }}
+                    >
+                      Edit
+                    </Button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </>
         </Table>

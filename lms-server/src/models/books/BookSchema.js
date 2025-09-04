@@ -52,6 +52,17 @@ const BookSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    images: {
+      small: {
+        cloud: { type: String },
+      },
+      medium: {
+        cloud: { type: String },
+      },
+      large: {
+        cloud: { type: String },
+      },
+    },
   },
   { timestamps: true }
 );

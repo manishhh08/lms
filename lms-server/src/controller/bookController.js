@@ -4,7 +4,8 @@ import {
   updateBookById,
 } from "../models/books/BookModel.js";
 import cloudinary from "cloudinary";
-
+import sharp from "sharp";
+// import path from "path";
 export const fetchBooks = async (req, res, next) => {
   try {
     let books = await getAllBooks({ status: "active" });
@@ -42,6 +43,11 @@ export const fetchAllBooks = async (req, res, next) => {
 // create book
 export const createBook = async (req, res, next) => {
   try {
+    //save image in multiple sizes
+    await sharp("assets/" + req.file.filename)
+      .resize(200)
+      .toFile("assets/resize-" + req.file.filename);
+
     //cloudinary image upload
     cloudinary.config({
       cloud_name: process.env.CLOUDINARY_NAME,
@@ -49,16 +55,48 @@ export const createBook = async (req, res, next) => {
       api_secret: process.env.CLOUDINARY_API_SECRET,
     });
 
+    if (!req.file) {
+      return res.json({
+        status: "error",
+        message: "Please upload book image",
+      });
+    }
     const options = {
       use_filename: true,
       unique_filename: false,
       overwrite: true,
     };
 
+    //size for images
+    // const sizes = [
+    //   { name: "small", width: 150, height: 120 },
+    //   { name: "medium", width: 300, height: 220 },
+    //   { name: "large", width: 600, height: 420 },
+    // ];
+
+    // let uploadedImages = {};
+
+    // for (let size of sizes) {
+    //   const localPath = path.join(
+    //     "assest",
+    //     `${size.name}- ${Date.now()}-${req.file.filename}`
+    //   );
+    // }
+
+    //resize to save locally
+    // await sharp("assets" / +req.file.filename)
+    //   .resize(sizes.width, sizes.height)
+    //   .toFile("assets/resize-" + req.file.filename);
+
     const result = await cloudinary.uploader.upload(
       "assets/" + req.file.filename,
       options
     );
+    // const result = await cloudinary.uploader.upload(
+    //   // "assets/" + req.file.filename,
+    //   localPath,
+    //   options
+    // );
 
     console.log(111, result);
 

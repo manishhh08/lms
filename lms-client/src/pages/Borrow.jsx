@@ -16,7 +16,7 @@ const Borrow = () => {
 
   return (
     <div className="p-5">
-      <h1>Borrows</h1>
+      <h1>Your Borrows</h1>
       <p>Manage your borrows, add new ones, or update existing entries.</p>
       <hr />
 
