@@ -22,6 +22,9 @@ app.get("/", (req, res) => {
   });
 });
 
+// static serve
+app.use("/public", express.static("assets"));
+
 // Auth routes
 app.use("/api/v1/auth", authRouter);
 
@@ -33,6 +36,17 @@ app.use("/api/v1/books", bookRouter);
 
 //borrow routes
 app.use("/api/v1/borrows", borrowRouter);
+
+//global error handler
+app.use((error, req, res, next) => {
+  console.log(error.message, "=======");
+
+  res.status(error.status || 500);
+  res.json({
+    status: "error",
+    message: error.message,
+  });
+});
 // Start the server
 mongodbConnection()
   .then(() => {

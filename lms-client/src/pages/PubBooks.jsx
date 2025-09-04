@@ -16,7 +16,7 @@ const PubBooks = () => {
 
   return (
     <Container>
-      <h2>Available Books</h2>
+      <h2 className="ms-4">Our Books</h2>
       <Row className="d-flex gap-4 m-4 flex-wrap w-full mb-0">
         {pubBook.map((book) => {
           return (

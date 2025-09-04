@@ -39,3 +39,12 @@ export const updateBookApi = async ({ _id, ...bookObj }) => {
     data: bookObj,
   });
 };
+
+export const deleteBookApi = async (_id) => {
+  console.log("bookid", _id);
+  return apiProcessor({
+    method: "DELETE",
+    url: `${apiUrl}/books/${_id}`,
+    isPrivate: true,
+  });
+};

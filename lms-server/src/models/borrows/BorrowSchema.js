@@ -30,11 +30,14 @@ const borrowSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["borrowed", "returned"],
+      enum: ["borrowed", "paid", "returned"],
       default: "borrowed",
     },
     returnDate: {
       type: Date,
+    },
+    clientSecret: {
+      type: String,
     },
   },
   {

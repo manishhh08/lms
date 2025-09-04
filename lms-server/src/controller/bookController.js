@@ -1,4 +1,5 @@
 import {
+  deleteBookById,
   getAllBooks,
   insertBook,
   updateBookById,
@@ -128,7 +129,6 @@ export const createBook = async (req, res, next) => {
   }
 };
 
-//update book
 // update book
 export const updateBook = async (req, res, next) => {
   try {
@@ -138,12 +138,45 @@ export const updateBook = async (req, res, next) => {
     let book = await updateBookById(id, req.body);
     return res.json({
       status: "success",
-      message: "Book Update",
+      message: "Book Updated Successfully",
       book,
     });
   } catch (err) {
     console.log(err);
     let message = "Book Update Failed!";
+    let statusCode = 500;
+    if (err.message.includes("E11000")) {
+      message = message + err.message;
+      statusCode = 400;
+    }
+    return res.status(statusCode).json({
+      status: "error",
+      message,
+    });
+  }
+};
+
+//delete book
+export const deleteBook = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const deletedBook = await deleteBookById(id);
+
+    if (!deletedBook) {
+      return res.status(404).json({
+        status: "error",
+        message: "Book not found",
+      });
+    }
+
+    return res.json({
+      status: "success",
+      message: "Book deleted successfully",
+    });
+  } catch (err) {
+    console.log(err);
+    let message = "Book Delete Failed!";
     let statusCode = 500;
     if (err.message.includes("E11000")) {
       message = message + err.message;

@@ -12,6 +12,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
+  deleteBookAction,
   fetchAllBooksAction,
   updateBookAction,
 } from "../features/books/bookAction";
@@ -50,7 +51,7 @@ const Book = () => {
       </Col>
 
       <Row className="m-2 ">
-        <Table variant="dark" className="text-center mt-3">
+        <Table variant="dark" className="text-center mt-3 ">
           <>
             <thead>
               <tr>
@@ -152,7 +153,7 @@ const Book = () => {
                               : import.meta.env.VITE_APP_API_URL +
                                 "/" +
                                 book.thumbnail
-                            : "/fallback-image.png" // fallback if no thumbnail
+                            : "/fallback-image.png"
                         }
                         // alt={book.bookTitle || "Book Thumbnail"}
                         width="50"
@@ -189,6 +190,16 @@ const Book = () => {
                     <Button
                       variant="danger"
                       className="d-inline-flex justify-content-center me-2"
+                      onClick={() => {
+                        if (
+                          window.confirm(
+                            "Are you sure you want to delete this book?"
+                          )
+                        ) {
+                          console.log(book._id);
+                          dispatch(deleteBookAction(book._id));
+                        }
+                      }}
                     >
                       Delete
                     </Button>

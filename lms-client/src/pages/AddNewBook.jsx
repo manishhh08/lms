@@ -97,7 +97,7 @@ const AddNewBook = () => {
 
   return (
     <>
-      <Container fluid className="py-4">
+      <Container fluid className="py-4 text-white">
         <Row className="align-items-center">
           <Col xs={12} md={8}>
             <h4>Add new books of your choice</h4>

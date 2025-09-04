@@ -1,6 +1,7 @@
 import express from "express";
 import {
   createBook,
+  deleteBook,
   fetchAllBooks,
   fetchBooks,
   updateBook,
@@ -28,4 +29,6 @@ router.post(
 );
 
 router.put("/:id", authMiddleware, isAdmin, updateBook);
+
+router.delete("/:id", authMiddleware, isAdmin, deleteBook);
 export default router;

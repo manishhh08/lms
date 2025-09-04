@@ -1,7 +1,126 @@
-import React from "react";
+import { useState } from "react";
+import { Button, Container, Form, Row } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { updateBookAction } from "../features/books/bookAction";
 
 const EditBook = () => {
-  return <div>EditBook</div>;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { selectedBook } = useSelector((store) => store.bookStore);
+
+  const [form, setForm] = useState(selectedBook);
+  const bookObject = {
+    title: "Edit New Book",
+    description: "Fill in the details of the book you want to add.",
+    fields: [
+      {
+        name: "bookTitle",
+        label: "Title",
+        type: "text",
+        placeholder: "Enter book title",
+        value: form.bookTitle,
+      },
+      {
+        name: "author",
+        label: "Author",
+        type: "text",
+        placeholder: "Enter author's name",
+        value: form.author,
+      },
+      {
+        name: "isbn",
+        label: "ISBN",
+        type: "number",
+        placeholder: "Enter ISBN number",
+        value: form.isbn,
+      },
+      {
+        name: "publishedYear",
+        label: "Published Date",
+        type: "number",
+        placeholder: "Select published date",
+        value: form.publishedYear,
+      },
+      {
+        name: "genre",
+        label: "Genre",
+        type: "text",
+        placeholder: "Enter book genre",
+        value: form.genre,
+      },
+      {
+        name: "description",
+        label: "Description",
+        type: "textarea",
+        placeholder: "Enter a brief description of the book",
+        value: form.description,
+      },
+      {
+        name: "thumbnail",
+        label: "Thumbnail",
+        type: "url",
+        placeholder: "Thumbnail",
+        value: form.thumbnail,
+      },
+    ],
+    submitButton: "Update Book",
+    cancelButton: "Cancel",
+  };
+
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    let data = await dispatch(updateBookAction(form));
+    if (data.status == "success") {
+      navigate("/books");
+    }
+  };
+  return (
+    <Container fluid className="p-4 border rounded bg-dark text-white">
+      <h4>Edit the book details as required</h4>
+
+      <Form onSubmit={handleOnSubmit}>
+        {bookObject.fields.map((field, index) => (
+          <Form.Group
+            key={index}
+            className="mb-3"
+            controlId={`formBasic${field.label}`}
+          >
+            <Form.Label className="form-label">{field.label}</Form.Label>
+            <Form.Control
+              type={field.type}
+              placeholder={field.placeholder}
+              name={field.name}
+              value={field.value}
+              onChange={(e) => {
+                let updatedForm = {
+                  ...form,
+                  [e.target.name]: e.target.value,
+                };
+                setForm(updatedForm);
+              }}
+            />
+          </Form.Group>
+        ))}
+        <Button variant="primary" type="submit">
+          {bookObject.submitButton}
+        </Button>
+        <Button
+          variant="secondary"
+          type="button"
+          className="ms-2"
+          onClick={() => {
+            {
+              navigate("/books");
+            }
+          }}
+        >
+          {bookObject.cancelButton}
+        </Button>
+      </Form>
+    </Container>
+  );
 };
 
 export default EditBook;

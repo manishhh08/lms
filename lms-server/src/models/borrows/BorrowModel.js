@@ -10,11 +10,6 @@ export const getBorrowById = (id) => {
   return Borrow.findById(id);
 };
 
-// //get user by email filter
-// export const getUser = (filter) => {
-//   return User.findOne(filter);
-// };
-
 //create  borrow history
 export const insertBorrow = (borrowObj) => {
   return Borrow.insertOne(borrowObj);

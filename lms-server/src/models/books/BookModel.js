@@ -34,6 +34,6 @@ export const updateBookById = (_id, bookObj) => {
   return Books.findByIdAndUpdate(_id, bookObj);
 };
 //delte book
-export const deleteBook = (_id) => {
+export const deleteBookById = (_id) => {
   return Books.findByIdAndDelete(_id);
 };

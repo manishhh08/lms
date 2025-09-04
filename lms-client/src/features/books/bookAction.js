@@ -1,5 +1,11 @@
 import { toast } from "react-toastify";
-import { addNewBook, getAllBooksApi, getBook, updateBookApi } from "./bookAPI";
+import {
+  addNewBook,
+  deleteBookApi,
+  getAllBooksApi,
+  getBook,
+  updateBookApi,
+} from "./bookAPI";
 import { setBook, setPubBook } from "./bookSlice";
 
 //get available books
@@ -34,4 +40,13 @@ export const updateBookAction = (form) => async (dispatch) => {
   }
 
   return { ...data };
+};
+
+export const deleteBookAction = (_id) => async (dispatch) => {
+  let data = await deleteBookApi(_id);
+  toast[data.status](data.message);
+  if (data.status == "success") {
+    // update bookstore
+    dispatch(fetchAllBooksAction());
+  }
 };

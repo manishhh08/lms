@@ -8,9 +8,12 @@ import {
 export const createBorrow = async (req, res, next) => {
   try {
     const userId = req.user._id;
+    // console.log(userId);
 
-    const { bookId, bookTitle, thumbnail } = req.body;
+    const { bookId, bookTitle, thumbnail } = req.body || {};
+    // const { bookId } = req.body;
 
+    console.log("111", bookId);
     const currentDate = new Date();
     const expectedDate = new Date(currentDate);
     expectedDate.setDate(currentDate.getDate() + 15);
@@ -33,6 +36,7 @@ export const createBorrow = async (req, res, next) => {
     return res.json({
       status: "success",
       message: "Book Borrowed",
+      borrow,
     });
   } catch (err) {
     console.log(err);
