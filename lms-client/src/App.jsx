@@ -16,7 +16,7 @@ import { useEffect } from "react";
 import Admin from "./pages/Admin";
 import Book from "./pages/Book";
 import Borrow from "./pages/Borrow";
-import User from "./pages/User";
+import User from "./pages/UserDetail";
 import Review from "./pages/Review";
 import AddNewBook from "./pages/AddNewBook";
 import EditBook from "./pages/EditBook";
@@ -24,6 +24,7 @@ import HomePage from "./pages/HomePage";
 import BookDetail from "./pages/BookDetail";
 import { fetchAllPublicBooksAction } from "./features/books/bookAction";
 import PubBooks from "./pages/PubBooks";
+import UserDetail from "./pages/UserDetail";
 
 function App() {
   const dispatch = useDispatch();
@@ -58,7 +59,7 @@ function App() {
               <Route path="books" element={<Book />} />
               <Route path="borrows" element={<Borrow />} />
               <Route path="review" element={<Review />} />
-              <Route path="users" element={<User />} />
+              <Route path="user-detail" element={<UserDetail />} />
               <Route path="books/add-book" element={<AddNewBook />} />
               <Route path="books/edit-books" element={<EditBook />} />
             </>

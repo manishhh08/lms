@@ -18,7 +18,7 @@ export const borrowBookAction = (borrowObject) => async (dispatch) => {
 // fetch current user borrow
 export const fetchBorrowAction = () => async (dispatch) => {
   let data = await fetchBorrowApi();
-  console.log(data);
+  // console.log(data);
   dispatch(setBorrows(data.borrows));
 };
 

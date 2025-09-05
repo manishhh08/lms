@@ -39,9 +39,9 @@ const Sidebar = () => {
       isAdminOnly: true,
     },
     {
-      link: "/profile",
+      link: "/user-detail",
 
-      label: "Profile",
+      label: "My Profile",
       isAdminOnly: false,
     },
   ];
@@ -66,7 +66,10 @@ const Sidebar = () => {
           />
         </div>
         <div className="top-user text-white fw-bold">
-          Welcome {user?.fullName}
+          Welcome,{" "}
+          {user?.fullName
+            ? user?.fullName.charAt(0).toUpperCase() + user.fullName.slice(1)
+            : "User"}
         </div>
       </div>
 
