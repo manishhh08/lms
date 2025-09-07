@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Container, Row, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+// import { setUser } from "../features/user/setUser";
 
 const Admin = () => {
   const { user } = useSelector((store) => store.userStore);
@@ -22,13 +23,13 @@ const Admin = () => {
           <tbody>
             {user && user.length > 0 ? (
               user.map((u, i) => (
-                <tr key={user._id}>
+                <tr key={u._id}>
                   <td>{i + 1}</td>
 
-                  <td>{user.fullName}</td>
+                  <td>{u.fullName}</td>
 
                   <td>
-                    <span className="badge bg-info text-dark">{user.role}</span>
+                    <span className="badge bg-info text-dark">{u.role}</span>
                   </td>
 
                   {/* Active/Inactive toggle */}
