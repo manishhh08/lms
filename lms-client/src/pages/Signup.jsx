@@ -4,7 +4,7 @@ import SignupForm from "../components/SignupForm";
 
 const Signup = () => {
   return (
-    <Container className="bg-dark ">
+    <Container className="bg-dark mt-5 border rounded w-75">
       <Row>
         {/* <Col md={6} className="p-5 rounded text-white">
           Financial Tips

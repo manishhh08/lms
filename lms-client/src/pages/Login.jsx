@@ -3,7 +3,7 @@ import LoginForm from "../components/LoginForm";
 
 const Login = () => {
   return (
-    <Container className="bg-dark ">
+    <Container className="bg-dark mt-5 border rounded w-75">
       <Row>
         <Col md={6} className="p-5 rounded text-white ">
           <h2>Welcome To Your Personal Library Management System</h2>

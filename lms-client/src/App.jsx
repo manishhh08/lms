@@ -55,7 +55,7 @@ function App() {
           <Route path="/" element={<PrivateLayout />}>
             <>
               <Route path="dashboard" element={<Dashboard />} />
-              <Route path="admin" element={<Admin />} />
+              <Route path="admins" element={<Admin />} />
               <Route path="books" element={<Book />} />
               <Route path="borrows" element={<Borrow />} />
               <Route path="review" element={<Review />} />
