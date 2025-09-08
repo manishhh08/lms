@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Container, Row, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-// import { setUser } from "../features/user/setUser";
+import { setUser } from "../features/user/userSlice";
 
 const Admin = () => {
   const { user } = useSelector((store) => store.userStore);
   const dispatch = useDispatch();
   // const [editMode, setEditMode] = useState(false);
+  // const [adminInformation, setAdminInformation] = useState[{}];
+
+  // adminInformation = [
+  //   {
+  //     fullName: "user",
+  //     role: "student",
+  //   },
+  // ];
   return (
     <Container fluid className="mt-2">
       <h4 className="mt-2 text-center">Admin Dashboard</h4>

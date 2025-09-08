@@ -12,10 +12,10 @@ export const getBorrowById = (id) => {
 
 //create  borrow history
 export const insertBorrow = (borrowObj) => {
-  return Borrow.insertOne(borrowObj);
+  return Borrow.create(borrowObj);
 };
 
 //update borrow by ID
 export const updateBorrowById = (id, borrowObj) => {
-  return Borrow.findByIdAndUpdate(id, borrowObj);
+  return Borrow.findByIdAndUpdate(id, borrowObj, { new: true });
 };

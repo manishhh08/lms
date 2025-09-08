@@ -10,10 +10,10 @@ export const createBorrow = async (req, res, next) => {
     const userId = req.user._id;
     // console.log(userId);
 
-    const { bookId, bookTitle, thumbnail } = req.body || {};
+    const { bookId } = req.body || {};
     // const { bookId } = req.body;
 
-    console.log("111", bookId);
+    console.log("1112", bookId);
     const currentDate = new Date();
     const expectedDate = new Date(currentDate);
     expectedDate.setDate(currentDate.getDate() + 15);
@@ -26,8 +26,8 @@ export const createBorrow = async (req, res, next) => {
     let borrowObject = {
       userId,
       bookId,
-      bookTitle,
-      thumbnail,
+      bookTitle: bookData?.bookTitle,
+      thumbnail: bookData?.thumbnail,
       dueDate: expectedDate,
     };
 

@@ -29,7 +29,7 @@ const Sidebar = () => {
     {
       link: "/borrows",
 
-      label: "Borrows",
+      label: "My Borrows",
       isAdminOnly: false,
     },
     {

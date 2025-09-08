@@ -15,7 +15,7 @@ const Borrow = () => {
   }, []);
 
   return (
-    <div className="p-5">
+    <div className="px-4">
       <h1>Your Borrows</h1>
       <p>Manage your borrows, add new ones, or update existing entries.</p>
       <hr />
@@ -27,6 +27,7 @@ const Borrow = () => {
               <Form.Check type="checkbox" value="all" />
             </th> */}
             <th>#</th>
+            <th>Thumbnail</th>
             <th>Book Title</th>
             <th>Expected Date</th>
             <th>Status</th>
@@ -42,20 +43,35 @@ const Borrow = () => {
                   <Form.Check type="checkbox" value={book.id} />
                 </td> */}
                 <td>{index + 1}</td>
-                {/* <td>
-                  <img
-                    src={
-                      borrow.thumbnail.includes("http")
-                        ? borrow.thumbnail
-                        : import.meta.env.VITE_APP_API_URL +
-                          "/" +
-                          borrow.thumbnail
-                    }
-                    width="80px"
-                  />{" "}
-                  {borrow.bookTitle}
-                </td> */}
-                <td>{borrow.dueDate}</td>
+                <td>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "10px",
+                    }}
+                  >
+                    <img
+                      src={
+                        borrow.thumbnail
+                          ? borrow.thumbnail.includes("http")
+                            ? borrow.thumbnail
+                            : import.meta.env.VITE_APP_API_URL +
+                              "/" +
+                              borrow.thumbnail
+                          : "/fallback-image.png"
+                      }
+                      // alt={book.bookTitle || "Book Thumbnail"}
+                      width="50"
+                      height="50"
+                      style={{ objectFit: "cover", borderRadius: "4px" }}
+                    />
+                    {/* <span>{book.bookTitle}</span> */}
+                  </div>
+                </td>
+                <td>{borrow?.bookTitle}</td>
+                <td>{borrow?.dueDate ? borrow?.dueDate.split("T")[0] : ""}</td>
                 <td>{borrow.status}</td>
                 <td>{borrow?.returnDate || ""}</td>
                 <td>
@@ -66,6 +82,9 @@ const Borrow = () => {
                       // onClick={() => {
                       //   dispatch(returnBookAction(borrow._id));
                       // }}
+                      onClick={() => {
+                        alert("Return clicked");
+                      }}
                     >
                       Return
                     </Button>

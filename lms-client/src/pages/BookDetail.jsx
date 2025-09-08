@@ -23,7 +23,7 @@ const BookDetail = () => {
   }, [pubBook]);
 
   const handleOnBookBorrow = async () => {
-    let data = await dispatch(borrowBookAction());
+    let data = await dispatch(borrowBookAction({ bookId: book._id }));
   };
   return (
     <Container>

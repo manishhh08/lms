@@ -64,72 +64,7 @@ const Book = () => {
                 <th>Action</th>
               </tr>
             </thead>
-            {/* 
-            <tbody>
-              {bookList.map((book, index) => {
-                return (
-                  <tr key={book._id}>
-                    <td>{index + 1}</td>
-                    <td>
-                      <img
-                        src={
-                          book?.thumbnail.includes("http")
-                            ? book.thumbnail
-                            : import.meta.env.VITE_APP_API_URL +
-                              "/" +
-                              book.thumbnail
-                        }
-                        width="80px"
-                      />{" "}
-                      {book.bookTitle}
-                    </td>
-                    <td>ss</td>
-                    <td>{book.bookTitle}</td>
-                    <td>{book.author}</td>
-                    <td>{book.isAvailable ? "Available" : "Not Available"}</td>
 
-                    <td>
-                      <Form.Check
-                        type="switch"
-                        id="custom-switch"
-                        checked={book.status === "active" ? true : false}
-                        onChange={(e) => {
-                          dispatch(
-                            updateBookAction({
-                              _id: book._id,
-                              status: e.target.checked ? "active" : "inactive",
-                            })
-                          );
-                        }}
-                      />
-                    </td>
-                    <td>
-                      <Button
-                        variant="danger"
-                        className="d-inline-flex justify-content-center me-2"
-                      >
-                        Delete
-                      </Button>
-                      <Button
-                        variant="warning"
-                        className="d-inline-flex justify-content-center"
-                        onClick={() => {
-                          // let selectedBook = book.find(
-                          //   (b) => b._id == book._id
-                          // );
-                          // console.log(selectedBook);
-                          // update the selected book
-                          dispatch(setSelectedBook(book));
-                          navigate("/books/edit-books");
-                        }}
-                      >
-                        Edit
-                      </Button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody> */}
             <tbody>
               {bookList.map((book, index) => (
                 <tr key={book._id || index}>
