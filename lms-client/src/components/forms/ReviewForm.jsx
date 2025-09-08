@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { CustomInput } from "../customInput/CustomInput";
+import { CustomInput } from "../custominput/CustomInput";
 import { FaStar } from "react-icons/fa";
 import useForm from "../../hooks/useForm";
 import { useDispatch } from "react-redux";
