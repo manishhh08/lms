@@ -58,7 +58,7 @@ function App() {
               <Route path="admins" element={<Admin />} />
               <Route path="books" element={<Book />} />
               <Route path="borrows" element={<Borrow />} />
-              <Route path="review" element={<Review />} />
+              <Route path="reviews" element={<Review />} />
               <Route path="user-detail" element={<UserDetail />} />
               <Route path="books/add-book" element={<AddNewBook />} />
               <Route path="books/edit-books" element={<EditBook />} />

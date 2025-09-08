@@ -6,8 +6,8 @@ import {
 } from "../models/books/BookModel.js";
 import cloudinary from "cloudinary";
 import sharp from "sharp";
-import slugify from "slugify";
-import slugifyHelper from "../utils/slugifyHelper.js";
+// import slugify from "slugify";
+// import slugifyHelper from "../utils/slugifyHelper.js";
 // import path from "path";
 export const fetchBooks = async (req, res, next) => {
   try {
@@ -104,7 +104,7 @@ export const createBook = async (req, res, next) => {
     console.log(111, result);
 
     req.body.thumbnail = result?.secure_url;
-    req.body.slug = slugifyHelper(req.body.bookTitle);
+    // req.body.slug = slugifyHelper(req.body.bookTitle);
     // add book
     // console.log(req.body);
     let book = await insertBook(req.body);

@@ -7,6 +7,7 @@ import authRouter from "./src/routes/authRouter.js";
 import userRouter from "./src/routes/userRouter.js";
 import bookRouter from "./src/routes/bookRouter.js";
 import borrowRouter from "./src/routes/borrowRouter.js";
+import reviewRouter from "./src/routes/reviewRouter.js";
 // Connect to MongoDB
 
 const PORT = config.port;
@@ -36,6 +37,9 @@ app.use("/api/v1/books", bookRouter);
 
 //borrow routes
 app.use("/api/v1/borrows", borrowRouter);
+
+//review routes
+app.use("/api/v1/reviews", reviewRouter);
 
 //global error handler
 app.use((error, req, res, next) => {

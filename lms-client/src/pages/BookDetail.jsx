@@ -27,7 +27,7 @@ const BookDetail = () => {
   };
   return (
     <Container>
-      <h3>Here are the details on the book that you selected</h3>
+      {/* <h3>Here are the details on the book that you selected</h3> */}
       <Row className="pt-5">
         <Col>
           <Card.Img
@@ -92,8 +92,6 @@ const BookDetail = () => {
               {/* <ReviewBlock pubReviews={pubReviews} /> */}
             </Tab>
           </Tabs>
-
-          {/* content area  */}
         </Col>
       </Row>
     </Container>

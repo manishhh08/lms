@@ -1,14 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchBorrowAction,
   returnBookAction,
 } from "../features/borrows/borrowActions";
+import { CustomModal } from "../components/customModal/CustomModal";
+import { ReviewForm } from "../components/forms/ReviewForm";
 
 const Borrow = () => {
   const { borrows } = useSelector((store) => store.borrowStore);
   const dispatch = useDispatch();
+
+  const [borrow, setBorrow] = useState({});
 
   useEffect(() => {
     dispatch(fetchBorrowAction());
@@ -16,6 +20,12 @@ const Borrow = () => {
 
   return (
     <div className="px-4">
+      {/*  rating modal */}
+      {borrow?._id && (
+        <CustomModal title="Leave your review" onHide={setBorrow}>
+          <ReviewForm borrow={borrow} setBorrow={setBorrow} />
+        </CustomModal>
+      )}
       <h1>Your Borrows</h1>
       <p>Manage your borrows, add new ones, or update existing entries.</p>
       <hr />
@@ -73,17 +83,18 @@ const Borrow = () => {
                 <td>{borrow?.bookTitle}</td>
                 <td>{borrow?.dueDate ? borrow?.dueDate.split("T")[0] : ""}</td>
                 <td>{borrow.status}</td>
-                <td>{borrow?.returnDate || ""}</td>
+                <td>
+                  {borrow?.returnDate
+                    ? borrow?.returnDate.split("T")[0]
+                    : "" || ""}
+                </td>
                 <td>
                   {borrow.status == "borrowed" ? (
                     <Button
                       variant="danger"
                       className="d-inline-flex justify-content-center me-2"
-                      // onClick={() => {
-                      //   dispatch(returnBookAction(borrow._id));
-                      // }}
                       onClick={() => {
-                        alert("Return clicked");
+                        dispatch(returnBookAction(borrow._id));
                       }}
                     >
                       Return
@@ -92,6 +103,7 @@ const Borrow = () => {
                     <Button
                       variant="warning"
                       className="d-inline-flex justify-content-center me-2"
+                      onClick={() => setBorrow(borrow)}
                     >
                       Review
                     </Button>
