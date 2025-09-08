@@ -6,7 +6,7 @@ import {
 } from "../models/books/BookModel.js";
 import cloudinary from "cloudinary";
 import sharp from "sharp";
-// import slugify from "slugify";
+import slugify from "slugify";
 // import slugifyHelper from "../utils/slugifyHelper.js";
 // import path from "path";
 export const fetchBooks = async (req, res, next) => {
@@ -46,6 +46,10 @@ export const fetchAllBooks = async (req, res, next) => {
 // create book
 export const createBook = async (req, res, next) => {
   try {
+    const { bookTitle } = req.body;
+    console.log(555555, bookTitle);
+    const slug = slugify(bookTitle);
+    console.log(slug);
     //save image in multiple sizes
     await sharp("assets/" + req.file.filename)
       .resize(200)
@@ -101,7 +105,7 @@ export const createBook = async (req, res, next) => {
     //   options
     // );
 
-    console.log(111, result);
+    // console.log(111, result);
 
     req.body.thumbnail = result?.secure_url;
     // req.body.slug = slugifyHelper(req.body.bookTitle);
