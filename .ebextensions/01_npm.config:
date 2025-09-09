@@ -1,4 +1,5 @@
 commands:
   01_npm_install:
-    cwd: lms-server
-    command: npm install
+    command: cd lms-server && npm install
+    cwd: "/var/app/staging/"
+
