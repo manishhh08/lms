@@ -6,8 +6,8 @@ const BookSchema = new mongoose.Schema(
   {
     status: {
       type: String,
-      enum: ["available", "unavailable"],
-      default: "unavailable",
+      enum: ["active", "inactive"],
+      default: "inactive",
     },
 
     bookTitle: {

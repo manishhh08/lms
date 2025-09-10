@@ -28,7 +28,7 @@ export const fetchBooks = async (req, res, next) => {
 
 export const fetchAllBooks = async (req, res, next) => {
   try {
-    let books = await getAllBooks({});
+    let books = await getAllBooks({ status: "active" });
     return res.json({
       status: "success",
       message: books.length + " Books found",

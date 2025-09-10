@@ -4,15 +4,22 @@ import Carousel from "react-bootstrap/Carousel";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchAllPublicBooksAction } from "../features/books/bookAction";
+import { useState } from "react";
 
 const HomePage = () => {
   const dispatch = useDispatch();
 
   let { pubBook } = useSelector((store) => store.bookStore);
 
+  const [books, setBooks] = useState([]);
+
   useEffect(() => {
     dispatch(fetchAllPublicBooksAction());
   }, []);
+
+  useEffect(() => {
+    setBooks(pubBook);
+  }, [pubBook]);
   return (
     <>
       <h3 className="text-center mt-4">Welcome to Library Management System</h3>
@@ -49,7 +56,7 @@ const HomePage = () => {
         <h4 className="ms-4">New arrival books </h4>
         <hr className="mx-auto" />
         <Row className="d-flex gap-4 m-4 flex-wrap w-full">
-          {pubBook.map((book) => {
+          {books.map((book) => {
             return (
               <Card style={{ width: "18rem" }}>
                 {/* <Card.Img variant="top" src="{thumbnail}" /> */}
