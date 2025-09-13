@@ -28,6 +28,10 @@ export const insertBook = (bookObj) => {
 export const getAllBooks = (filterObj) => {
   return Books.find(filterObj);
 };
+// get all public book
+export const getAllPublicBooks = (filterObj) => {
+  return Books.find(filterObj);
+};
 
 //update book
 export const updateBookById = (_id, bookObj) => {

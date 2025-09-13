@@ -1,6 +1,7 @@
 import {
   deleteBookById,
   getAllBooks,
+  getAllPublicBooks,
   insertBook,
   updateBookById,
 } from "../models/books/BookModel.js";
@@ -28,7 +29,7 @@ export const fetchBooks = async (req, res, next) => {
 
 export const fetchAllBooks = async (req, res, next) => {
   try {
-    let books = await getAllBooks({ status: "active" });
+    let books = await getAllPublicBooks();
     return res.json({
       status: "success",
       message: books.length + " Books found",
