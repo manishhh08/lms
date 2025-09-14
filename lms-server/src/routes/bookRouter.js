@@ -13,7 +13,7 @@ import { upload } from "../middleware/multerConfig.js";
 
 const router = express.Router();
 
-router.get("/pub-books", fetchAllBooks);
+router.get("/pub-books", fetchBooks);
 
 // router.get("/:id", fetchBooks);
 
