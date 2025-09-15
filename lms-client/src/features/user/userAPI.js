@@ -22,6 +22,14 @@ export const loginUser = async (obj) => {
   });
 };
 
+//get all user detail for admin
+export const fetchAllUserDetail = async () => {
+  return apiProcessor({
+    method: "get",
+    url: `${apiUrl}/user/admins`,
+    isPrivate: true,
+  });
+};
 //get user detail
 export const fetchUserDetail = async () => {
   return apiProcessor({

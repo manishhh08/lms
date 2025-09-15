@@ -21,7 +21,7 @@ const Sidebar = () => {
       isAdminOnly: true,
     },
     {
-      link: "/admins",
+      link: "/user/admins",
 
       label: "Admin",
       isAdminOnly: true,

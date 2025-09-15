@@ -1,43 +1,40 @@
-import React, { useState } from "react";
+import { useEffect } from "react";
 import { Button, Container, Row, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../features/user/userSlice";
+import { getAllUserAction } from "../features/user/userAction";
 
 const Admin = () => {
-  const { user } = useSelector((store) => store.userStore);
+  const { users } = useSelector((store) => store.userStore);
   const dispatch = useDispatch();
-  // const [editMode, setEditMode] = useState(false);
-  // const [adminInformation, setAdminInformation] = useState[{}];
 
-  // adminInformation = [
-  //   {
-  //     fullName: "user",
-  //     role: "student",
-  //   },
-  // ];
+  useEffect(() => {
+    dispatch(getAllUserAction());
+  }, [dispatch]);
   return (
     <Container fluid className="mt-2">
       <h4 className="mt-2 text-center">Admin Dashboard</h4>
       <Row className="table-responsive ">
-        <Table variant="dark" className="align-middle ">
+        <Table variant="dark" className=" m-2">
           <thead>
             <tr>
-              <th className="ps-5">#</th>
+              <th>#</th>
               <th>Name</th>
+              <th>Email</th>
               <th>Role</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {user && user.length > 0 ? (
-              user.map((u, i) => (
+            {users && users.length > 0 ? (
+              users.map((u, i) => (
                 <tr key={u._id}>
                   <td>{i + 1}</td>
 
-                  <td>{u.fullName}</td>
+                  <td>{u?.fullName}</td>
+                  <td>{u?.email}</td>
 
                   <td>
-                    <span className="badge bg-info text-dark">{u.role}</span>
+                    <span className="badge bg-info text-dark">{u?.role}</span>
                   </td>
 
                   {/* Active/Inactive toggle */}

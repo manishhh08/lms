@@ -1,8 +1,14 @@
 import express from "express";
-import { authMiddleware } from "../middleware/authMiddleware.js";
-import { getUserDetail } from "../controller/userController.js";
+import { authMiddleware, isAdmin } from "../middleware/authMiddleware.js";
+import {
+  getAllUsersController,
+  getUserDetail,
+} from "../controller/userController.js";
+// import { getAllUsers } from "../models/users/UserModel.js";
 
 const router = express.Router();
+
+router.get("/admins", authMiddleware, isAdmin, getAllUsersController);
 
 router.get("/detail", authMiddleware, getUserDetail);
 
