@@ -11,10 +11,10 @@ const Admin = () => {
     dispatch(getAllUserAction());
   }, [dispatch]);
   return (
-    <Container fluid className="mt-2">
+    <Container>
       <h4 className="mt-2 text-center">Admin Dashboard</h4>
-      <Row className="table-responsive ">
-        <Table variant="dark" className=" m-2">
+      <Row className=" m-2">
+        <Table variant="dark" className="text-center m-3 pe-3">
           <thead>
             <tr>
               <th>#</th>
@@ -59,6 +59,9 @@ const Admin = () => {
                       //   window.confirm("Delete this user?") &&
                       //   handleDelete(user._id)
                       // }
+                      onClick={() => {
+                        alert("Delete clicked");
+                      }}
                     >
                       Delete
                     </Button>
@@ -66,6 +69,9 @@ const Admin = () => {
                       variant="warning"
                       size="sm"
                       // onClick={() => handleEdit(user)}
+                      onClick={() => {
+                        alert("Editı clicked");
+                      }}
                     >
                       Edit
                     </Button>
