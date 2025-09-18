@@ -25,6 +25,10 @@ export const updateUserById = (_id, userObj) => {
   return User.findByIdAndUpdate(_id, userObj, { new: true });
 };
 
+//remove user by id
+export const removeUserById = (_id) => {
+  return User.findByIdAndDelete(_id);
+};
 //keep only 5 latest access token
 export const pushAccessToken = (id, accessToken) => {
   return User.findByIdAndUpdate(

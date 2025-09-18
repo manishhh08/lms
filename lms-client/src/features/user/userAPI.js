@@ -47,6 +47,14 @@ export const updateUserRole = async ({ _id, ...userObj }) => {
     data: userObj,
   });
 };
+//delete user
+export const removeUser = async (_id) => {
+  return apiProcessor({
+    method: "DELETE",
+    url: `${apiUrl}/user/${_id}`,
+    isPrivate: true,
+  });
+};
 // verify user
 export const verifyUser = async (token, email) => {
   return apiProcessor({

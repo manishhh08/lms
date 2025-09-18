@@ -3,6 +3,7 @@ import { Button, Container, Form, Row, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllUserAction,
+  removeUserAction,
   updateUserRoleAction,
 } from "../features/user/userAction";
 
@@ -36,9 +37,6 @@ const Admin = () => {
                   <td>{u?.fullName}</td>
                   <td>{u?.email}</td>
 
-                  {/* <td>
-                    <span className="badge bg-info text-dark">{u?.role}</span>
-                  </td> */}
                   <td>
                     <Form.Check
                       type="switch"
@@ -55,44 +53,23 @@ const Admin = () => {
                     />
                   </td>
 
-                  {/* Active/Inactive toggle */}
-                  {/* <td>
-                    <div className="form-check form-switch">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        checked={user.isActive}
-                        onChange={() => handleEdit(user)}
-                      />
-                    </div>
-                    <p>Action area</p>
-                  </td> */}
-
                   <td>
                     <Button
                       variant="danger"
                       size="sm"
                       className="me-2"
-                      // onClick={() =>
-                      //   window.confirm("Delete this user?") &&
-                      //   handleDelete(user._id)
-                      // }
                       onClick={() => {
-                        alert("Delete clicked");
+                        if (
+                          window.confirm(
+                            "Delete this user? This action is irreversible!!!"
+                          )
+                        ) {
+                          dispatch(removeUserAction(u._id));
+                        }
                       }}
                     >
                       Delete
                     </Button>
-                    {/* <Button
-                      variant="warning"
-                      size="sm"
-                      // onClick={() => handleEdit(user)}
-                      onClick={() => {
-                        alert("Editı clicked");
-                      }}
-                    >
-                      Edit
-                    </Button> */}
                   </td>
                 </tr>
               ))

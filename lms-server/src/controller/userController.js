@@ -1,4 +1,8 @@
-import { getAllUsers, updateUserById } from "../models/users/UserModel.js";
+import {
+  getAllUsers,
+  removeUserById,
+  updateUserById,
+} from "../models/users/UserModel.js";
 
 export const getUserDetail = (req, res) => {
   res.send({
@@ -39,6 +43,38 @@ export const updateRoleController = async (req, res, next) => {
   } catch (err) {
     console.log(err);
     let message = "User Role Update Failed!";
+    let statusCode = 500;
+    if (err.message.includes("E11000")) {
+      message = message + err.message;
+      statusCode = 400;
+    }
+    return res.status(statusCode).json({
+      status: "error",
+      message,
+    });
+  }
+};
+
+export const deleteUser = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const deletedUser = await removeUserById(id);
+
+    if (!deletedUser) {
+      return res.status(404).json({
+        status: "error",
+        message: "User not found",
+      });
+    }
+
+    return res.json({
+      status: "success",
+      message: "User deleted successfully",
+    });
+  } catch (err) {
+    console.log(err);
+    let message = "User Delete Failed!";
     let statusCode = 500;
     if (err.message.includes("E11000")) {
       message = message + err.message;

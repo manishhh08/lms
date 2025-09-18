@@ -8,6 +8,7 @@ import {
   fetchAllUserDetail,
   fetchUserDetail,
   loginUser,
+  removeUser,
   updateUserRole,
 } from "./userAPI";
 import { setAllUsers, setUser } from "./userSlice";
@@ -56,6 +57,16 @@ export const updateUserRoleAction = (form) => async (dispatch, getState) => {
       return u._id === data.user._id ? data.user : u;
     });
     dispatch(setAllUsers(updatedUsers || []));
+  }
+};
+
+export const removeUserAction = (_id) => async (dispatch, getState) => {
+  let data = await removeUser(_id);
+  if (data.status === "success") {
+    //update the store
+    const users = getState().userStore.users;
+    const updatedUsers = users.filter((u) => u._id !== _id);
+    dispatch(setAllUsers(updatedUsers));
   }
 };
 
