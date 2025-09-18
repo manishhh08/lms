@@ -1,9 +1,15 @@
+import { toast } from "react-toastify";
 import {
   deleteAccessToken,
   deleteRefreshToken,
   storeToken,
 } from "../../utils/storageFunction";
-import { fetchAllUserDetail, fetchUserDetail, loginUser } from "./userAPI";
+import {
+  fetchAllUserDetail,
+  fetchUserDetail,
+  loginUser,
+  updateUserRole,
+} from "./userAPI";
 import { setAllUsers, setUser } from "./userSlice";
 
 export const getUserDetail = () => async (dispatch) => {
@@ -11,7 +17,7 @@ export const getUserDetail = () => async (dispatch) => {
 
   if (data.status === "success") {
     //update the store
-    dispatch(setUser(data.user));
+    dispatch(setUser(data?.user));
   }
   return { status: data.status, message: data.message };
 };
@@ -38,6 +44,19 @@ export const loginUserAction = (form) => async (dispatch) => {
     dispatch(getUserDetail());
   }
   return { status: data.status, message: data.message };
+};
+
+export const updateUserRoleAction = (form) => async (dispatch, getState) => {
+  let data = await updateUserRole(form);
+  toast[data.status](data.message);
+  if (data.status == "success") {
+    const users = getState().userStore.users;
+
+    const updatedUsers = users.map((u) => {
+      return u._id === data.user._id ? data.user : u;
+    });
+    dispatch(setAllUsers(updatedUsers || []));
+  }
 };
 
 export const logoutAction = () => (dispatch) => {

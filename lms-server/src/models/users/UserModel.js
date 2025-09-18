@@ -21,8 +21,8 @@ export const createUser = (userObj) => {
 };
 
 //update user by ID
-export const updateUserById = (id, userObj) => {
-  return User.findByIdAndUpdate(id, userObj);
+export const updateUserById = (_id, userObj) => {
+  return User.findByIdAndUpdate(_id, userObj, { new: true });
 };
 
 //keep only 5 latest access token

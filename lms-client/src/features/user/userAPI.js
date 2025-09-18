@@ -38,6 +38,15 @@ export const fetchUserDetail = async () => {
     isPrivate: true,
   });
 };
+//update user role
+export const updateUserRole = async ({ _id, ...userObj }) => {
+  return apiProcessor({
+    method: "put",
+    url: `${apiUrl}/user/admins/${_id}`,
+    isPrivate: true,
+    data: userObj,
+  });
+};
 // verify user
 export const verifyUser = async (token, email) => {
   return apiProcessor({

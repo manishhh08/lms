@@ -1,7 +1,10 @@
 import { useEffect } from "react";
-import { Button, Container, Row, Table } from "react-bootstrap";
+import { Button, Container, Form, Row, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUserAction } from "../features/user/userAction";
+import {
+  getAllUserAction,
+  updateUserRoleAction,
+} from "../features/user/userAction";
 
 const Admin = () => {
   const { users } = useSelector((store) => store.userStore);
@@ -20,7 +23,7 @@ const Admin = () => {
               <th>#</th>
               <th>Name</th>
               <th>Email</th>
-              <th>Role</th>
+              <th>Is Admin?</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -33,8 +36,23 @@ const Admin = () => {
                   <td>{u?.fullName}</td>
                   <td>{u?.email}</td>
 
-                  <td>
+                  {/* <td>
                     <span className="badge bg-info text-dark">{u?.role}</span>
+                  </td> */}
+                  <td>
+                    <Form.Check
+                      type="switch"
+                      id={`status-switch-${u._id}`}
+                      checked={u.role === "admin"}
+                      onChange={(e) => {
+                        dispatch(
+                          updateUserRoleAction({
+                            _id: u._id,
+                            role: e.target.checked ? "admin" : "student",
+                          })
+                        );
+                      }}
+                    />
                   </td>
 
                   {/* Active/Inactive toggle */}
@@ -65,7 +83,7 @@ const Admin = () => {
                     >
                       Delete
                     </Button>
-                    <Button
+                    {/* <Button
                       variant="warning"
                       size="sm"
                       // onClick={() => handleEdit(user)}
@@ -74,7 +92,7 @@ const Admin = () => {
                       }}
                     >
                       Edit
-                    </Button>
+                    </Button> */}
                   </td>
                 </tr>
               ))
