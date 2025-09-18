@@ -43,12 +43,26 @@ const Admin = () => {
                       id={`status-switch-${u._id}`}
                       checked={u.role === "admin"}
                       onChange={(e) => {
-                        dispatch(
-                          updateUserRoleAction({
-                            _id: u._id,
-                            role: e.target.checked ? "admin" : "student",
-                          })
-                        );
+                        const updatedRole = e.target.checked
+                          ? "admin"
+                          : "student";
+
+                        let confirmMessage = "";
+                        if (updatedRole === "admin") {
+                          confirmMessage = `Do you want to provide admin access to "${u.fullName}"?`;
+                        } else {
+                          confirmMessage = `Do you want to revoke the admin access from "${u.fullName}"?`;
+                        }
+
+                        if (window.confirm(confirmMessage)) {
+                          dispatch(
+                            updateUserRoleAction({
+                              _id: u._id,
+                              // role: e.target.checked ? "admin" : "student",
+                              role: updatedRole,
+                            })
+                          );
+                        }
                       }}
                     />
                   </td>
