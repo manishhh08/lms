@@ -9,9 +9,11 @@ const reviewSlice = createSlice({
   name: "reviews",
   initialState,
   reducers: {
+    //for admin
     setReviews: (state, actions) => {
       state.reviews = actions.payload;
     },
+    //for public
     setPubReviews: (state, actions) => {
       state.pubReviews = actions.payload;
     },

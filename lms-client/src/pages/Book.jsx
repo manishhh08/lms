@@ -39,14 +39,16 @@ const Book = () => {
   }, [book]);
   return (
     <Container>
-      <Row className="mt-3">
+      <Row className="mt-3 text-center">
         <Col>
           <h5>Book Section</h5>
         </Col>
       </Row>
-      <Button onClick={handleOnClick}>Add New Books</Button>
+      <Button className="ms-2 " onClick={handleOnClick}>
+        Add New Books
+      </Button>
 
-      <Col className="d-flex justify-content-between size-5 ms-3 mt-3 fs-4">
+      <Col className="d-flex justify-content-between size-5 ms-3 mt-3 fs-5">
         {bookList.length} books found.
       </Col>
 
