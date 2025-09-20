@@ -21,7 +21,7 @@ export const createUser = (userObj) => {
 };
 //create or register new user by admin
 export const createUserByAdmin = (userObj) => {
-  return User.insertOne(userObj);
+  return User.create(userObj);
 };
 
 //update user by ID

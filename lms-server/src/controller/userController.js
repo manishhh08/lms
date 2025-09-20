@@ -1,4 +1,5 @@
 import {
+  createUserByAdmin,
   getAllUsers,
   removeUserById,
   updateUserById,
@@ -75,6 +76,38 @@ export const deleteUser = async (req, res, next) => {
   } catch (err) {
     console.log(err);
     let message = "User Delete Failed!";
+    let statusCode = 500;
+    if (err.message.includes("E11000")) {
+      message = message + err.message;
+      statusCode = 400;
+    }
+    return res.status(statusCode).json({
+      status: "error",
+      message,
+    });
+  }
+};
+
+export const createNewUser = async (req, res, next) => {
+  try {
+    const userObj = req.body;
+
+    const newUser = await createUserByAdmin(userObj);
+    if (!newUser) {
+      return res.status(404).json({
+        status: "error",
+        message: "User creation failed",
+      });
+    } else {
+      return res.json({
+        staus: "success",
+        message:
+          "User creation successful. Activate account by verification sent to your email.",
+        data: newUser,
+      });
+    }
+  } catch (err) {
+    let message = "User creation failed!";
     let statusCode = 500;
     if (err.message.includes("E11000")) {
       message = message + err.message;

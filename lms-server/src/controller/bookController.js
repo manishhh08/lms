@@ -48,7 +48,7 @@ export const fetchAllBooks = async (req, res, next) => {
 export const createBook = async (req, res, next) => {
   try {
     const { bookTitle } = req.body;
-    console.log(555555, bookTitle);
+    // console.log(555555, bookTitle);
     const slug = slugify(bookTitle);
     console.log(slug);
     //save image in multiple sizes

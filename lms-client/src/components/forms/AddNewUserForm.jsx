@@ -5,10 +5,13 @@ import { CustomInput } from "../custominput/CustomInput";
 import { createUserByAdmin } from "../../features/user/userAPI";
 import { toast } from "react-toastify";
 import { useState } from "react";
+import { getAllUserAction } from "../../features/user/userAction";
+import { useDispatch } from "react-redux";
 
 const AddNewUserForm = ({ onClose }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   let initialState = {
     fullName: "",
@@ -81,9 +84,10 @@ const AddNewUserForm = ({ onClose }) => {
     setLoading(true);
     try {
       let data = await createUserByAdmin(form);
-      console.log("created by admin info:", data);
-      if (data.success) {
+      // console.log("created by admin info:", data);
+      if (data.status === "success") {
         toast.success(data.message);
+        dispatch(getAllUserAction());
         onClose();
       } else {
         toast.error(data.message);
