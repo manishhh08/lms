@@ -1,5 +1,6 @@
 import {
   createUser,
+  createUserByAdmin,
   getUser,
   pushAccessToken,
   updateUserById,
@@ -173,5 +174,53 @@ export const verifyEmail = async (req, res) => {
       status: false,
       message: "Verification Failed",
     });
+  }
+};
+
+export const registerUserByAdmin = async (req, res) => {
+  try {
+    let userObj = req.body;
+
+    userObj.password = encodeFunction(userObj.password);
+
+    let newUser = await createUserByAdmin(userObj);
+
+    if (newUser._id) {
+      // create unique token and store in db
+      const emailVerificationToken = uuidv4();
+
+      const result = await updateUserById(newUser._id, {
+        emailVerificationToken,
+      });
+
+      // send email verification with token
+
+      const url =
+        process.env.APP_URL +
+        `/verify-email?t=${emailVerificationToken}&email=${newUser.email}`;
+
+      sendEmailVerification({
+        to: newUser.email,
+        url,
+        userName: newUser.userName,
+      });
+    }
+    return res.status(201).json({
+      status: "success",
+      message: "User registered successfully, please verify your email",
+    });
+  } catch (err) {
+    console.log(err.message);
+    if (err.message.includes("E11000")) {
+      return res.status(400).json({
+        status: false,
+        message: "Invalid email or username",
+      });
+    } else {
+      return res.status(500).json({
+        status: false,
+        message: "Server Error",
+      });
+    }
   }
 };

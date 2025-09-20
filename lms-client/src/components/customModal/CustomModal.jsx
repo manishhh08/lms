@@ -1,9 +1,7 @@
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 
-export const CustomModal = ({ title, children, onHide }) => {
-  const [show, setShow] = useState(true);
-
+export const CustomModal = ({ title, children, onHide, show }) => {
   return (
     <Modal
       show={show}

@@ -19,6 +19,10 @@ export const getUser = (filter) => {
 export const createUser = (userObj) => {
   return User.insertOne(userObj);
 };
+//create or register new user by admin
+export const createUserByAdmin = (userObj) => {
+  return User.insertOne(userObj);
+};
 
 //update user by ID
 export const updateUserById = (_id, userObj) => {

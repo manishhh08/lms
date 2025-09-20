@@ -22,6 +22,15 @@ export const loginUser = async (obj) => {
   });
 };
 
+// create user from admin side
+export const createUserByAdmin = async (obj) => {
+  return apiProcessor({
+    method: "post",
+    url: `${apiUrl}/user/admins`,
+    isPrivate: true,
+    data: obj,
+  });
+};
 //get all user detail for admin
 export const fetchAllUserDetail = async () => {
   return apiProcessor({

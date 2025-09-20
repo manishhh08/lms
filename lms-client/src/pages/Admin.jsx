@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button, Container, Form, Row, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -6,17 +6,42 @@ import {
   removeUserAction,
   updateUserRoleAction,
 } from "../features/user/userAction";
+import AddNewUserForm from "../components/forms/AddNewUserForm";
+import { CustomModal } from "../components/customModal/CustomModal";
 
 const Admin = () => {
   const { users } = useSelector((store) => store.userStore);
   const dispatch = useDispatch();
 
+  // const [user, setUser] = useState({});
+  const [showModal, setShowModal] = useState(false);
   useEffect(() => {
     dispatch(getAllUserAction());
   }, [dispatch]);
   return (
     <Container>
       <h4 className="mt-2 text-center">Admin Dashboard</h4>
+      {/* {user?._id && (
+        <CustomModal title="Add New User" onHide={setUser}>
+          <AddNewUserForm user={user} setUser={setUser} />
+        </CustomModal>
+      )} */}
+
+      <div>
+        <Button variant="primary" onClick={() => setShowModal(true)}>
+          Add New User
+        </Button>
+
+        {showModal && (
+          <CustomModal
+            title="Add New User"
+            show={showModal}
+            onHide={() => setShowModal(false)}
+          >
+            <AddNewUserForm onClose={() => setShowModal(false)} />
+          </CustomModal>
+        )}
+      </div>
       <Row className=" m-2">
         <Table variant="dark" className="text-center m-3 pe-3">
           <thead>
