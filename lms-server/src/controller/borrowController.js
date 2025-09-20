@@ -13,7 +13,7 @@ export const createBorrow = async (req, res, next) => {
     const { bookId } = req.body || {};
     // const { bookId } = req.body;
 
-    console.log("1112", bookId);
+    // console.log("1112", bookId);
     const currentDate = new Date();
     const expectedDate = new Date(currentDate);
     expectedDate.setDate(currentDate.getDate() + 15);

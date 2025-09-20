@@ -160,7 +160,7 @@ const AddNewBook = () => {
                   Submit
                 </Button>
 
-                <Button type="cancel" variant="danger">
+                <Button variant="danger" onClick={handleOnClick}>
                   Cancel
                 </Button>
               </div>

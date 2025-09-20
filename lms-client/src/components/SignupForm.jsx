@@ -19,7 +19,7 @@ const SignupForm = () => {
     phone: "",
   };
   //console.log(useState(0));
-  const { form, setForm, handleOnChange } = useForm(initialState);
+  const { form, handleOnChange } = useForm(initialState);
 
   let inputFields = [
     {
@@ -89,21 +89,14 @@ const SignupForm = () => {
     }
   };
 
-  // const handleOnChange = (e) => {
-  //   let tempForm = { ...form };
-  //   tempForm[e.target.name] = e.target.value;
-  //   setForm(tempForm);
-  // };
-
   return (
     <div>
       <h1>Signup Form</h1>
       <hr />
-      {/* <Form onSubmit={handleOnSubmit}> */}
+
       <Form onSubmit={handleOnSubmit}>
         {inputFields.map((item) => {
           return <CustomInput {...item} onChange={handleOnChange} />;
-          //   return <CustomInput {...item} onChange={handleOnChange} />;
         })}
         {/* <Form.Group className="mb-3" controlId="formBasicSelect">
           <Form.Label>Select User Type</Form.Label>
