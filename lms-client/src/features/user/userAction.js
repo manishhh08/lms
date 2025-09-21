@@ -53,10 +53,10 @@ export const updateUserRoleAction = (form) => async (dispatch, getState) => {
   if (data.status == "success") {
     const users = getState().userStore.users;
 
-    const updatedUsers = users.map((u) => {
+    const allUpdatedUsers = users.map((u) => {
       return u._id === data.user._id ? data.user : u;
     });
-    dispatch(setAllUsers(updatedUsers || []));
+    dispatch(setAllUsers(allUpdatedUsers || []));
   }
 };
 

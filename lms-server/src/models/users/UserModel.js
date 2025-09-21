@@ -15,6 +15,11 @@ export const getUser = (filter) => {
   return User.findOne(filter);
 };
 
+//count number of admins
+export const countTotalAdmins = (filter) => {
+  return User.countDocuments(filter);
+};
+
 //create or register new user
 export const createUser = (userObj) => {
   return User.insertOne(userObj);
