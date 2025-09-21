@@ -56,6 +56,15 @@ export const updateUserRole = async ({ _id, ...userObj }) => {
     data: userObj,
   });
 };
+//update user details
+export const updateUserDetail = async ({ _id, ...userObj }) => {
+  return apiProcessor({
+    method: "put",
+    url: `${apiUrl}/user/${_id}`,
+    isPrivate: true,
+    data: userObj,
+  });
+};
 //delete user
 export const removeUser = async (_id) => {
   return apiProcessor({

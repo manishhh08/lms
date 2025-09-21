@@ -6,6 +6,7 @@ import {
   removeUserById,
   updateUserById,
 } from "../models/users/UserModel.js";
+import { encodeFunction } from "../utils/encodehelper.js";
 
 export const getUserDetail = (req, res) => {
   res.send({
@@ -159,6 +160,45 @@ export const createNewUser = async (req, res, next) => {
     return res.status(statusCode).json({
       status: "error",
       message,
+    });
+  }
+};
+
+export const updateUserDetail = async (req, res, next) => {
+  try {
+    let id = req.params.id;
+    let userObj = req.body;
+
+    const user = await getUserById(id);
+    if (!user) {
+      return res.json({
+        status: "error",
+        message: "User not found",
+      });
+    }
+
+    //hash password
+    if (userObj.password) {
+      userObj.password = encodeFunction(userObj.password);
+    }
+    const userUpdateDetail = await updateUserById(id, userObj, { new: true });
+
+    if (userUpdateDetail) {
+      return res.json({
+        status: "success",
+        message: "User detail updated successfully",
+        userUpdateDetail,
+      });
+    } else {
+      return res.json({
+        status: "error",
+        message: "User detail could not be updated. Please try again.",
+      });
+    }
+  } catch (err) {
+    res.json({
+      status: "error",
+      message: err,
     });
   }
 };

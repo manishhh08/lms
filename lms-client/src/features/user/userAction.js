@@ -9,6 +9,7 @@ import {
   fetchUserDetail,
   loginUser,
   removeUser,
+  updateUserDetail,
   updateUserRole,
 } from "./userAPI";
 import { setAllUsers, setUser } from "./userSlice";
@@ -57,6 +58,14 @@ export const updateUserRoleAction = (form) => async (dispatch, getState) => {
       return u._id === data.user._id ? data.user : u;
     });
     dispatch(setAllUsers(allUpdatedUsers || []));
+  }
+};
+
+export const updateUserDetailAction = (form) => async (dispatch) => {
+  let data = await updateUserDetail(form);
+  toast[data.status](data.message);
+  if (data.status === "success") {
+    dispatch(getUserDetail());
   }
 };
 
