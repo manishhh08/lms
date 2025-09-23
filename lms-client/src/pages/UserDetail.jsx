@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Container, Form } from "react-bootstrap";
-import CustomInput from "../components/CustomInput";
-import useForm from "../hooks/useForm";
+// import { CustomInput } from "../components/custominput/CustomInput";
+// import useForm from "../hooks/useForm";
 import { useEffect, useState } from "react";
 import {
   getUserDetail,

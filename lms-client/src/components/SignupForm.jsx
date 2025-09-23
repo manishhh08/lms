@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import CustomInput from "./CustomInput";
+import { CustomInput } from "./custominput/CustomInput";
 import { useNavigate } from "react-router-dom";
 // import { postUser } from "../utils/axiosHelper";
 
