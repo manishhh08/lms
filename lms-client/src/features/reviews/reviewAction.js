@@ -1,8 +1,14 @@
 import { toast } from "react-toastify";
 import { fetchReviewApi, postNewReview } from "./reviewApi";
-import { setPubReviews } from "./reviewSlice";
+import { setPubReviews, setReviews } from "./reviewSlice";
 
-// fetch current user borrow
+// fetch all reviews
+export const fetchAllReviewAction = () => async (dispatch) => {
+  let data = await fetchReviewApi(true);
+  console.log(data);
+  dispatch(setReviews(data.reviews));
+};
+// fetch publicly available reviews
 export const fetchPublicReviewAction = () => async (dispatch) => {
   let data = await fetchReviewApi(true);
   console.log(data);

@@ -1,10 +1,15 @@
-import React, { useState } from "react";
-import { Button, Col, Container, Row, Table } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { Col, Container, Row, Table } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { setReviews } from "../features/reviews/reviewSlice";
+import { useEffect } from "react";
+import { fetchAllReviewAction } from "../features/reviews/reviewAction";
 
 const Review = () => {
+  const dispatch = useDispatch();
   const { reviews } = useSelector((store) => store.reviewStore);
-  const [reviewList, setReviewList] = useState([]);
+  useEffect(() => {
+    dispatch(fetchAllReviewAction());
+  }, [dispatch]);
   return (
     <Container>
       <Row className="mt-3 text-center">
@@ -14,7 +19,7 @@ const Review = () => {
       </Row>
 
       <Col className="d-flex justify-content-between size-5 ms-3 mt-3 fs-5">
-        {reviewList.length} reviews found.
+        {reviews.length} reviews found.
       </Col>
 
       <Row className="m-2 ">
@@ -25,36 +30,36 @@ const Review = () => {
                 <th>#</th>
                 <th>Reviewer Name</th>
                 <th>Book Title</th>
-                <th>Author</th>
                 <th>Review</th>
+                <th>Ratings</th>
                 <th>Status</th>
               </tr>
             </thead>
 
             <tbody>
-              {reviewList.map((review, index) => (
+              {reviews.map((review, index) => (
                 <tr key={review._id || index}>
                   <td>{index + 1}</td>
                   <td>{review.username || "Unknown Author"}</td>
                   <td>{review.bookTitle || "Untitled"}</td>
                   <td>{review.message || " "}</td>
-
-                  {/* Status Switch */}
-                  <td>
+                  <td>{review.ratings}</td>
+                  <td>{review.status}</td>
+                  {/* <td>
                     <Form.Check
                       type="switch"
-                      id={`status-switch-${book._id}`}
-                      checked={book.status === "active"}
+                      id={`status-switch-${review._id}`}
+                      checked={review.status === "active"}
                       onChange={(e) => {
                         dispatch(
                           updateReviewAction({
-                            _id: book._id,
+                            _id: review._id,
                             status: e.target.checked ? "active" : "inactive",
                           })
                         );
                       }}
                     />
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>

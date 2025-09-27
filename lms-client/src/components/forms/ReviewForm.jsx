@@ -5,6 +5,7 @@ import { FaStar } from "react-icons/fa";
 import useForm from "../../hooks/useForm";
 import { useDispatch } from "react-redux";
 import { addNewReviewAction } from "../../features/reviews/reviewAction";
+import { fetchBorrowAction } from "../../features/borrows/borrowActions";
 
 export const ReviewForm = ({ borrow, setBorrow }) => {
   const dispatch = useDispatch();
@@ -30,7 +31,10 @@ export const ReviewForm = ({ borrow, setBorrow }) => {
 
     if (window.confirm("Are you sure you want to leave this review?")) {
       const action = await dispatch(addNewReviewAction(obj));
-      action && setBorrow({});
+      if (action) {
+        dispatch(fetchBorrowAction());
+        setBorrow({});
+      }
     }
   };
   return (

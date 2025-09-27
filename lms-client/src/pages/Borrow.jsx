@@ -22,7 +22,11 @@ const Borrow = () => {
     <div className="px-4">
       {/*  rating modal */}
       {borrow?._id && (
-        <CustomModal title="Leave your review" onHide={setBorrow}>
+        <CustomModal
+          title="Leave your review"
+          show={!!borrow?._id}
+          onHide={() => setBorrow({})}
+        >
           <ReviewForm borrow={borrow} setBorrow={setBorrow} />
         </CustomModal>
       )}
