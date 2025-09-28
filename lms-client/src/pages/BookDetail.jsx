@@ -3,10 +3,10 @@ import { Button, Card, Col, Container, Row, Tab, Tabs } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { borrowBookAction } from "../features/borrows/borrowActions";
+import { fetchPublicReviewAction } from "../features/reviews/reviewAction";
 
 const BookDetail = () => {
   const location = useLocation();
-  // console.log(location);
   const { bookid } = useParams();
   const [book, setBook] = useState({});
   const dispatch = useDispatch();
@@ -16,6 +16,13 @@ const BookDetail = () => {
 
   // pub books from store
   let { pubBook } = useSelector((store) => store.bookStore);
+
+  //retrieve review
+  const pubReviews = useSelector((store) => store.reviewStore.pubReviews || []);
+
+  useEffect(() => {
+    dispatch(fetchPublicReviewAction());
+  }, [dispatch]);
 
   useEffect(() => {
     let searchBook = pubBook.find((item) => item._id == bookid);
@@ -88,8 +95,89 @@ const BookDetail = () => {
               {book?.description}
             </Tab>
 
+            {/* <Tab eventKey="reviews" title="Reviews">
+              {book._id &&
+                pubReviews
+                  ?.filter(
+                    (review) =>
+                      String(review.bookId) === String(book._id) &&
+                      review.status === "active"
+                  )
+                  .map((review, index) => (
+                    <Card key={review._id || index} className="mb-3">
+                      <Card.Body>
+                        <Card.Title>
+                          {review.username || "Anonymous"}
+                        </Card.Title>
+                        <Card.Subtitle className="mb-2 text-muted">
+                          {review.bookTitle || book.bookTitle}
+                        </Card.Subtitle>
+                        <Card.Text>{review.message}</Card.Text>
+                        <div>
+                          {[...Array(review.ratings)].map((_, i) => (
+                            <span key={i} style={{ color: "#FFD700" }}>
+                              ★
+                            </span>
+                          ))}
+                          {[...Array(5 - review.ratings)].map((_, i) => (
+                            <span key={i} style={{ color: "#ccc" }}>
+                              ★
+                            </span>
+                          ))}
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  ))}
+
+              {book._id &&
+                pubReviews?.filter(
+                  (review) =>
+                    String(review.bookId) === String(book._id) &&
+                    review.status === "active"
+                ).length === 0 && <p>No reviews yet for this book.</p>}
+            </Tab> */}
             <Tab eventKey="reviews" title="Reviews">
-              {/* <ReviewBlock pubReviews={pubReviews} /> */}
+              {book?._id ? (
+                (() => {
+                  const activeBookReviews = pubReviews.filter(
+                    (review) =>
+                      String(review.bookId) === String(book._id) &&
+                      review.status === "active"
+                  );
+
+                  if (activeBookReviews.length === 0) {
+                    return <p>No reviews yet for this book.</p>;
+                  }
+
+                  return activeBookReviews.map((review, index) => (
+                    <Card key={review._id || index} className="mb-3">
+                      <Card.Body>
+                        <Card.Title>
+                          {review.username || "Anonymous"}
+                        </Card.Title>
+                        <Card.Subtitle className="mb-2 text-muted">
+                          {review.bookTitle || book.bookTitle}
+                        </Card.Subtitle>
+                        <Card.Text>{review.message}</Card.Text>
+                        <div>
+                          {[...Array(review.ratings)].map((_, i) => (
+                            <span key={i} style={{ color: "#FFD700" }}>
+                              ★
+                            </span>
+                          ))}
+                          {[...Array(5 - review.ratings)].map((_, i) => (
+                            <span key={i} style={{ color: "#ccc" }}>
+                              ★
+                            </span>
+                          ))}
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  ));
+                })()
+              ) : (
+                <p>Loading reviews...</p>
+              )}
             </Tab>
           </Tabs>
         </Col>

@@ -1,12 +1,14 @@
-import { Col, Container, Row, Table } from "react-bootstrap";
+import { Col, Container, Form, Row, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { setReviews } from "../features/reviews/reviewSlice";
 import { useEffect } from "react";
-import { fetchAllReviewAction } from "../features/reviews/reviewAction";
+import {
+  fetchAllReviewAction,
+  updateReviewStatusAction,
+} from "../features/reviews/reviewAction";
 
 const Review = () => {
   const dispatch = useDispatch();
-  const { reviews } = useSelector((store) => store.reviewStore);
+  const reviews = useSelector((store) => store.reviewStore.reviews);
   useEffect(() => {
     dispatch(fetchAllReviewAction());
   }, [dispatch]);
@@ -43,23 +45,35 @@ const Review = () => {
                   <td>{review.username || "Unknown Author"}</td>
                   <td>{review.bookTitle || "Untitled"}</td>
                   <td>{review.message || " "}</td>
-                  <td>{review.ratings}</td>
-                  <td>{review.status}</td>
-                  {/* <td>
+                  {/* <td>{review.ratings}</td> */}
+                  <td>
+                    {[...Array(review.ratings)].map((_, i) => (
+                      <span key={i} style={{ color: "#FFD700" }}>
+                        ★
+                      </span>
+                    ))}
+                    {[...Array(5 - review.ratings)].map((_, i) => (
+                      <span key={i} style={{ color: "#ccc" }}>
+                        ★
+                      </span>
+                    ))}
+                  </td>
+
+                  <td>
                     <Form.Check
                       type="switch"
                       id={`status-switch-${review._id}`}
                       checked={review.status === "active"}
                       onChange={(e) => {
                         dispatch(
-                          updateReviewAction({
+                          updateReviewStatusAction({
                             _id: review._id,
                             status: e.target.checked ? "active" : "inactive",
                           })
                         );
                       }}
                     />
-                  </td> */}
+                  </td>
                 </tr>
               ))}
             </tbody>

@@ -12,5 +12,5 @@ export const insertReview = (reviewObject) => {
 
 //update review if required
 export const updateReviewById = (id, reviewObj) => {
-  return Review.findByIdAndUpdate(id, reviewObj);
+  return Review.findByIdAndUpdate(id, reviewObj, { new: true });
 };

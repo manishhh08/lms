@@ -17,3 +17,12 @@ export const postNewReview = async (reviewObject) => {
     isPrivate: true,
   });
 };
+
+export const updateReviewStatus = async ({ _id, ...reviewObject }) => {
+  return apiProcessor({
+    method: "put",
+    url: `${apiUrl}/reviews/${_id}/status`,
+    isPrivate: true,
+    data: reviewObject,
+  });
+};
