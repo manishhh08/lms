@@ -90,9 +90,9 @@ const HomePage = () => {
         <h4 className="ms-4">Recommended for you </h4>
         <hr />
         <Row className="d-flex gap-4 m-4 flex-wrap w-full pb-0 mb-0">
-          {pubBook.map((book) => {
+          {pubBook.map((index, book) => {
             return (
-              <Card style={{ width: "18rem" }}>
+              <Card key={index} style={{ width: "18rem" }}>
                 {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                 <Card.Img
                   variant="top"
@@ -110,7 +110,7 @@ const HomePage = () => {
                 <Card.Body>
                   <Card.Title>{book?.bookTitle}</Card.Title>
                   <Card.Text>{book?.publishedYear}</Card.Text>
-                  <Card.Text>{book?.description.slice(0, 200)}</Card.Text>
+                  <Card.Text>{book?.description}</Card.Text>
                   <Link to={"/book-detail/" + book._id}>
                     <Button variant="primary">Details</Button>
                   </Link>
