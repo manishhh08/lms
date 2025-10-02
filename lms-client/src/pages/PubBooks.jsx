@@ -3,6 +3,7 @@ import { fetchAllPublicBooksAction } from "../features/books/bookAction";
 import { Card, Container, Row, Col } from "react-bootstrap";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import "../App.css";
 
 const PubBooks = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const PubBooks = () => {
               to={`/book-detail/${book._id}`}
               style={{ textDecoration: "none", color: "inherit" }}
             >
-              <Card className="h-100 shadow-sm" style={{ cursor: "pointer" }}>
+              <Card className="h-100 book-card">
                 <Card.Img
                   variant="top"
                   src={
